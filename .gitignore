@@ -216,3 +216,6 @@ coverage.json
 node_modules/
 npm-debug.log*
 yarn-error.log*
+/BillMax.API/BillMax.API/obj
+/BillMax.API/BillMax.API/obj/Debug
+/BillMaxAPP/obj/Debug/net10.0-android
