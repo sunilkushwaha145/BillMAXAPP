@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BillMax.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+82ef0e2e9ae8e47bc006d38c52e0c5d5ec5504e3")]
 [assembly: System.Reflection.AssemblyProductAttribute("BillMax.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BillMax.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
