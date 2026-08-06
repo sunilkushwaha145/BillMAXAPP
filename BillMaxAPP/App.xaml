@@ -1,0 +1,72 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:BillMaxAPP"
+             x:Class="BillMaxAPP.App">
+    <Application.Resources>
+        <!--<ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>-->
+
+        <!-- Page Background -->
+        <Style TargetType="ContentPage">
+            <Setter Property="BackgroundColor" Value="#F8FAFC"/>
+        </Style>
+
+        <!-- Labels -->
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="sans-serif"/>
+            <Setter Property="TextColor" Value="#111827"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <!-- Buttons -->
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="sans-serif"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="HeightRequest" Value="44"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="BackgroundColor" Value="#4F46E5"/>
+            <Setter Property="TextColor" Value="White"/>
+        </Style>
+
+        <!-- Entry -->
+        <Style TargetType="Entry">
+            <Setter Property="FontFamily" Value="sans-serif"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="TextColor" Value="#111827"/>
+            <Setter Property="PlaceholderColor" Value="#94A3B8"/>
+        </Style>
+
+        <!-- SearchBar -->
+        <Style TargetType="SearchBar">
+            <Setter Property="FontFamily" Value="sans-serif"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="TextColor" Value="#111827"/>
+            <Setter Property="PlaceholderColor" Value="#94A3B8"/>
+        </Style>
+
+        <!-- Picker -->
+        <Style TargetType="Picker">
+            <Setter Property="FontFamily" Value="sans-serif"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <!-- Editor -->
+        <Style TargetType="Editor">
+            <Setter Property="FontFamily" Value="sans-serif"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <!-- Border -->
+        <Style TargetType="Border">
+            <Setter Property="Stroke" Value="#E5E7EB"/>
+            <Setter Property="StrokeThickness" Value="1"/>
+        </Style>
+    </Application.Resources>
+
+</Application>

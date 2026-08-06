@@ -1,0 +1,10 @@
+<api type="debug" assembly-name="BillMaxAPP" mvid="5d5e0f426441408fa60005902e21e5ea">
+  <java-to-managed>
+    <entry java-name="crc641e422a901a0655c9/MainActivity" managed-name="BillMaxAPP.MainActivity, BillMaxAPP" managed-type-token-id="33554444" />
+    <entry java-name="crc641e422a901a0655c9/MainApplication" managed-name="BillMaxAPP.MainApplication, BillMaxAPP" managed-type-token-id="33554445" />
+  </java-to-managed>
+  <managed-to-java>
+    <entry java-name="crc641e422a901a0655c9/MainActivity" managed-name="BillMaxAPP.MainActivity, BillMaxAPP" managed-type-token-id="33554444" />
+    <entry java-name="crc641e422a901a0655c9/MainApplication" managed-name="BillMaxAPP.MainApplication, BillMaxAPP" managed-type-token-id="33554445" />
+  </managed-to-java>
+</api>

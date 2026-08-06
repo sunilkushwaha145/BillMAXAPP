@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="BillMaxAPP.Views.Components.SalesTrendCard"
+    x:Name="Root"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui">
+
+    <Border
+        BackgroundColor="White"
+        Padding="15"
+        Stroke="#E5E7EB"
+        StrokeThickness="1">
+
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="15"/>
+        </Border.StrokeShape>
+
+        <VerticalStackLayout Spacing="15">
+
+            <!-- Header -->
+
+            <Grid ColumnDefinitions="*,Auto">
+
+                <Label
+                    Text="Sales Trend"
+                    FontSize="18"
+                    FontAttributes="Bold"
+                    VerticalOptions="Center"/>
+
+                <Grid
+    Grid.Column="1"
+    ColumnDefinitions="Auto,Auto,Auto"
+    ColumnSpacing="8">
+
+                    <Button
+    Text="Week"
+    Command="{Binding Source={x:Reference Root},Path=WeekCommand}" />
+
+                    <Button
+    Text="Month"
+    Command="{Binding Source={x:Reference Root},Path=MonthCommand}" />
+
+                    <Button
+    Text="Year"
+    Command="{Binding Source={x:Reference Root},Path=YearCommand}" />
+
+                </Grid>
+
+            </Grid>
+
+            <!-- Chart Placeholder -->
+
+            <Border
+                HeightRequest="220"
+                BackgroundColor="#F8FAFC"
+                Stroke="#E5E7EB">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10"/>
+                </Border.StrokeShape>
+
+                <VerticalStackLayout
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Spacing="10">
+
+
+                    <!--<lvc:CartesianChart
+    HeightRequest="250"
+    Series="{Binding Source={x:Reference Root}, Path=Series}" />-->
+
+                </VerticalStackLayout>
+
+            </Border>
+
+        </VerticalStackLayout>
+
+    </Border>
+
+</ContentView>

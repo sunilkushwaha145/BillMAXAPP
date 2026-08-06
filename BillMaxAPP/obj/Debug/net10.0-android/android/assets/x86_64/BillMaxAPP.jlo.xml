@@ -1,0 +1,15 @@
+<api>
+  <jcw-types>
+    <type name="MainActivity" package="crc641e422a901a0655c9" application_java_class="android.app.Application" mono_runtime_initialization="mono.MonoPackageManager.LoadApplication (context);" extends_type="crc6488302ad6e9e4df1a.MauiAppCompatActivity" partial_assembly_qualified_name="BillMaxAPP.MainActivity, BillMaxAPP">
+      <constructors>
+        <constructor name="MainActivity" method="n_.ctor:()V:" jni_signature="()V" managed_parameters="" retval="void" is_dynamically_registered="True" />
+        <constructor name="MainActivity" method="n_.ctor:(I)V:" jni_signature="(I)V" managed_parameters="System.Int32, System.Private.CoreLib" params="int p0" retval="void" is_dynamically_registered="True" super_call="p0" activate_call="p0" />
+      </constructors>
+    </type>
+    <type name="MainApplication" package="crc641e422a901a0655c9" application_java_class="android.app.Application" mono_runtime_initialization="mono.MonoPackageManager.LoadApplication (context);" extends_type="crc6488302ad6e9e4df1a.MauiApplication" is_application="True" partial_assembly_qualified_name="BillMaxAPP.MainApplication, BillMaxAPP" application_constructor="MainApplication" />
+  </jcw-types>
+  <acw-types partial-assembly-name="BillMaxAPP" module-name="BillMaxAPP.dll">
+    <type assembly-qualified-name="BillMaxAPP.MainActivity, BillMaxAPP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" compat-jni-name="billmaxapp.MainActivity" java-key="crc641e422a901a0655c9.MainActivity" managed-key="BillMaxAPP.MainActivity" partial-assembly-qualified-name="BillMaxAPP.MainActivity, BillMaxAPP" />
+    <type assembly-qualified-name="BillMaxAPP.MainApplication, BillMaxAPP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" compat-jni-name="billmaxapp.MainApplication" java-key="crc641e422a901a0655c9.MainApplication" managed-key="BillMaxAPP.MainApplication" partial-assembly-qualified-name="BillMaxAPP.MainApplication, BillMaxAPP" />
+  </acw-types>
+</api>

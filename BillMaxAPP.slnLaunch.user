@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "BillMax.API\\BillMax.API\\BillMax.API.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "BillMaxAPP\\BillMaxAPP.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
