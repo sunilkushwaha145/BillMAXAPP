@@ -27,23 +27,87 @@
                     FontSize="18"
                     FontAttributes="Bold"
                     VerticalOptions="Center"/>
-
                 <Grid
     Grid.Column="1"
     ColumnDefinitions="Auto,Auto,Auto"
-    ColumnSpacing="8">
+    ColumnSpacing="0">
 
-                    <Button
-    Text="Week"
-    Command="{Binding Source={x:Reference Root},Path=WeekCommand}" />
+                    <!-- Week -->
+                    <Border
+        Grid.Column="0"
+        WidthRequest="60"
+        HeightRequest="35"
+        BackgroundColor="#2563EB"
+        StrokeThickness="0">
 
-                    <Button
-    Text="Month"
-    Command="{Binding Source={x:Reference Root},Path=MonthCommand}" />
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8,0,8,0"/>
+                        </Border.StrokeShape>
 
-                    <Button
-    Text="Year"
-    Command="{Binding Source={x:Reference Root},Path=YearCommand}" />
+                        <Label
+            Text="Week"
+            FontSize="12"
+                            FontAttributes="Bold"
+            TextColor="White"
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer
+                    Command="{Binding Source={x:Reference Root}, Path=WeekCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+
+                    </Border>
+
+                    <!-- Month -->
+                    <Border
+        Grid.Column="1"
+        WidthRequest="60"
+        HeightRequest="35"
+        BackgroundColor="#2563EB"
+        StrokeThickness="0">
+
+                        <Label
+            Text="Month"
+            FontSize="12"
+            TextColor="White"
+                            FontAttributes="Bold"
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer
+                    Command="{Binding Source={x:Reference Root}, Path=MonthCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+
+                    </Border>
+
+                    <!-- Year -->
+                    <Border
+        Grid.Column="2"
+        WidthRequest="60"
+        HeightRequest="35"
+        BackgroundColor="#2563EB"
+        StrokeThickness="0">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="0,8,0,8"/>
+                        </Border.StrokeShape>
+
+                        <Label
+            Text="Year"
+            FontSize="12"
+            TextColor="White"
+                            FontAttributes="Bold"
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer
+                    Command="{Binding Source={x:Reference Root}, Path=YearCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+
+                    </Border>
 
                 </Grid>
 
@@ -52,26 +116,16 @@
             <!-- Chart Placeholder -->
 
             <Border
-                HeightRequest="220"
-                BackgroundColor="#F8FAFC"
-                Stroke="#E5E7EB">
-
+    HeightRequest="220"
+    BackgroundColor="#F8FAFC"
+    Stroke="#E5E7EB">
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="10"/>
                 </Border.StrokeShape>
 
-                <VerticalStackLayout
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center"
-                    Spacing="10">
-
-
-                    <!--<lvc:CartesianChart
-    HeightRequest="250"
-    Series="{Binding Source={x:Reference Root}, Path=Series}" />-->
-
-                </VerticalStackLayout>
-
+                <lvc:CartesianChart
+        Series="{Binding Source={x:Reference Root}, Path=Series}"
+        XAxes="{Binding Source={x:Reference Root}, Path=XAxes}" />
             </Border>
 
         </VerticalStackLayout>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BillMaxAPP.Views.SplashPage"
+             BackgroundColor="White"
+             NavigationPage.HasNavigationBar="False">
+
+    <Grid RowDefinitions="*,Auto">
+
+        <!-- ===================== TOP WHITE SECTION ===================== -->
+        <Grid Grid.Row="0" Padding="30,60,30,0" RowDefinitions="Auto,Auto,Auto,Auto,*">
+
+            <!-- Logo -->
+            <Image Grid.Row="0"
+                   Source="billmax_logo.png"
+                   HeightRequest="140"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+
+            <!-- Wordmark -->
+            <HorizontalStackLayout Grid.Row="1"
+                                    Spacing="0"
+                                    HorizontalOptions="Center"
+                                    Margin="0,15,0,0">
+                <Label Text="Bill" FontSize="40" FontAttributes="Bold" TextColor="#1F2937" />
+                <Label Text="Max" FontSize="40" FontAttributes="Bold" TextColor="#2563EB" />
+            </HorizontalStackLayout>
+
+            <!-- Divider -->
+            <BoxView Grid.Row="2"
+                     HeightRequest="2"
+                     WidthRequest="40"
+                     Color="#2563EB"
+                     HorizontalOptions="Center"
+                     Margin="0,10,0,0" />
+
+            <!-- Tagline -->
+            <VerticalStackLayout Grid.Row="3"
+                                  Spacing="2"
+                                  HorizontalOptions="Center"
+                                  Margin="0,15,0,0">
+                <Label Text="POS &amp; INVENTORY MANAGEMENT"
+                       FontSize="13"
+                       CharacterSpacing="1"
+                       TextColor="#6B7280"
+                       HorizontalOptions="Center" />
+                <Label Text="MADE SIMPLE"
+                       FontSize="13"
+                       FontAttributes="Bold"
+                       CharacterSpacing="1"
+                       TextColor="#2563EB"
+                       HorizontalOptions="Center" />
+            </VerticalStackLayout>
+
+            <!-- Loading Spinner -->
+            <VerticalStackLayout Grid.Row="4"
+                                  Spacing="10"
+                                  HorizontalOptions="Center"
+                                  VerticalOptions="Center">
+                <ActivityIndicator x:Name="LoadingSpinner"
+                                   IsRunning="True"
+                                   Color="#2563EB"
+                                   WidthRequest="45"
+                                   HeightRequest="45" />
+                <Label Text="Loading your workspace..."
+                       FontSize="13"
+                       TextColor="#2563EB"
+                       HorizontalOptions="Center" />
+            </VerticalStackLayout>
+
+        </Grid>
+
+        <!-- ===================== BOTTOM WAVE + BLUE SECTION ===================== -->
+        <Grid Grid.Row="1">
+
+            <!-- Wave shape (sits on top of blue panel to fake the curve) -->
+            <Path Fill="#2563EB"
+                  Aspect="Fill"
+                  HeightRequest="40"
+                  VerticalOptions="Start"
+                  Data="M0,40 C 150,0 350,80 512,35 C 700,-10 874,60 1024,20 L1024,40 L0,40 Z"
+                  Margin="0,-38,0,0" />
+
+            <BoxView Color="#2563EB" />
+
+            <VerticalStackLayout Padding="20,30,20,30" Spacing="25">
+
+                <!-- Feature icons row -->
+                <Grid ColumnDefinitions="*,*,*,*">
+                    <VerticalStackLayout Grid.Column="0" Spacing="6" HorizontalOptions="Center">
+                        <Image Source="store.png" HeightRequest="26" />
+                        <Label Text="POS" TextColor="White" FontSize="11" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Column="1" Spacing="6" HorizontalOptions="Center">
+                        <Image Source="product.png" HeightRequest="26" />
+                        <Label Text="INVENTORY" TextColor="White" FontSize="11" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Column="2" Spacing="6" HorizontalOptions="Center">
+                        <Image Source="sales.png" HeightRequest="26" />
+                        <Label Text="REPORTS" TextColor="White" FontSize="11" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Column="3" Spacing="6" HorizontalOptions="Center">
+                        <Image Source="bill.png" HeightRequest="26" />
+                        <Label Text="CUSTOMERS" TextColor="White" FontSize="11" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Grid>
+
+                <!-- Tagline -->
+                <Label TextColor="White"
+                       FontSize="15"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Manage " />
+                            <Span Text="Smarter" FontAttributes="Bold" />
+                            <Span Text=". Sell " />
+                            <Span Text="Faster" FontAttributes="Bold" />
+                            <Span Text=". Grow " />
+                            <Span Text="Bigger" FontAttributes="Bold" />
+                            <Span Text="." />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <!-- Progress indicator -->
+                <BoxView HeightRequest="4"
+                         CornerRadius="2"
+                         Color="#93B3FA"
+                         HorizontalOptions="Center"
+                         WidthRequest="200" />
+
+            </VerticalStackLayout>
+
+        </Grid>
+
+    </Grid>
+</ContentPage>

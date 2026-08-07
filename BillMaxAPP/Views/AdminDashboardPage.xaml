@@ -100,12 +100,11 @@ CardColor="#3B82F6"/>
 
 
             <!-- Sales Trend -->
-
             <components:SalesTrendCard
-        TrendData="{Binding WeekTrend}"
-        WeekCommand="{Binding WeekCommand}"
-        MonthCommand="{Binding MonthCommand}"
-        YearCommand="{Binding YearCommand}" />
+    TrendData="{Binding CurrentTrend}"
+    WeekCommand="{Binding WeekCommand}"
+    MonthCommand="{Binding MonthCommand}"
+    YearCommand="{Binding YearCommand}" />
 
 
             <!-- Top Stores -->

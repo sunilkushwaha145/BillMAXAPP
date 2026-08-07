@@ -28,4 +28,5 @@ public partial class AdminDashboardPage : ContentPage
 
         await _viewModel.LoadDashboardAsync();
     }
+
 }

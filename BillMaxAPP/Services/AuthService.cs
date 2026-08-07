@@ -22,5 +22,10 @@ namespace BillMaxAPP.Services
                 ApiRoutes.Login,
                 request);
         }
+        public Task LogoutAsync()
+        {
+            SecureStorage.Remove("token");
+            return Task.CompletedTask;
+        }
     }
 }

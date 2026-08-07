@@ -10,14 +10,17 @@ namespace BillMaxAPP
         {
             InitializeComponent();
         }
-
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            var loginPage = IPlatformApplication.Current!
+            var splashPage = IPlatformApplication.Current!
                 .Services
-                .GetRequiredService<LoginPage>();
+                .GetRequiredService<SplashPage>();
 
-            return new Window(new NavigationPage(loginPage));
+            return new Window(new NavigationPage(splashPage)
+            {
+                BarBackgroundColor = Colors.White
+            });
         }
+        
     }
 }

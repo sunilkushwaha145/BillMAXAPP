@@ -45,4 +45,18 @@
         <ShellContent
             ContentTemplate="{DataTemplate views:ProfilePage}" />
     </FlyoutItem>
+
+    <!-- ===================== FLYOUT FOOTER (Logout Button) ===================== -->
+    <Shell.FlyoutFooter>
+        <Grid Padding="20,15" BackgroundColor="White">
+            <Button
+                Text="Logout"
+                Clicked="OnLogoutClicked"
+                BackgroundColor="#EF4444"
+                TextColor="White"
+                CornerRadius="10"
+                HeightRequest="45"
+                FontAttributes="Bold" />
+        </Grid>
+    </Shell.FlyoutFooter>
 </Shell>

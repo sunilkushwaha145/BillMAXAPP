@@ -1,5 +1,7 @@
 ﻿using BillMaxAPP.Models;
+using BillMaxAPP.Services;
 using BillMaxAPP.Services.Interfaces;
+using BillMaxAPP.Views;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -40,7 +42,7 @@ public class AdminDashboardViewModel : INotifyPropertyChanged
     public ObservableCollection<SalesTrend> CurrentTrend { get; }
         = new();
 
-    public AdminDashboardViewModel(IDashboardService dashboardService)
+    public AdminDashboardViewModel(IDashboardService dashboardService, IAuthService authService )
     {
         _dashboardService = dashboardService;
 
@@ -96,7 +98,11 @@ public class AdminDashboardViewModel : INotifyPropertyChanged
         CurrentTrend.Clear();
 
         foreach (var item in WeekTrend)
+        {
+            item.SaleRang = item.SaleDate.ToString("dd MMM");
             CurrentTrend.Add(item);
+        }
+            
     }
 
     private void LoadMonth()
@@ -104,7 +110,10 @@ public class AdminDashboardViewModel : INotifyPropertyChanged
         CurrentTrend.Clear();
 
         foreach (var item in MonthTrend)
+        {
+            item.SaleRang = item.SaleDate.ToString("MMM");
             CurrentTrend.Add(item);
+        }  
     }
 
     private void LoadYear()
@@ -112,6 +121,10 @@ public class AdminDashboardViewModel : INotifyPropertyChanged
         CurrentTrend.Clear();
 
         foreach (var item in YearTrend)
+        {
+            item.SaleRang = item.SaleDate.ToString("yyyy");
             CurrentTrend.Add(item);
+        }
+            
     }
 }

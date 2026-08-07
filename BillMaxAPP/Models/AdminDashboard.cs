@@ -40,6 +40,7 @@ namespace BillMaxAPP.Models
     public class SalesTrend
     {
         public DateTime SaleDate { get; set; }
+        public string SaleRang { get; set; }
 
         public decimal TotalSales { get; set; }
     }

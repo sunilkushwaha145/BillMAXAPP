@@ -8,5 +8,6 @@ namespace BillMaxAPP.Services.Interfaces
     public interface IAuthService
     {
         Task<ResJsonOutput?> LoginAsync(LoginRequest request);
+        Task LogoutAsync();
     }
 }
