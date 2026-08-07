@@ -1,5 +1,4 @@
 <Solution>
-  <Project Path="BillMax.API/BillMax.API/BillMax.API.csproj" />
   <Project Path="BillMaxAPP/BillMaxAPP.csproj">
     <Deploy Solution="Debug|*" />
   </Project>
