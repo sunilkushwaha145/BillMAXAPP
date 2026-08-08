@@ -1,8 +1,8 @@
 ﻿using BillMaxAPP.Models;
 using BillMaxAPP.Services.Interfaces;
-using BillMaxAPP.Views;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text.Json;
 using System.Windows.Input;
 
 namespace BillMaxAPP.ViewModels;
@@ -77,21 +77,46 @@ public class LoginViewModel : INotifyPropertyChanged
 
             if (result != null && result.Status.IsSuccess)
             {
-                var token = result.Data?.ToString();
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                var response = ((JsonElement)result.Data).Deserialize<LoginData>(options);
+                var token = response?.Token;
 
                 if (RememberMe)
                 {
-                    await SecureStorage.SetAsync("token", token);
+                    await SecureStorage.SetAsync("token",response.Token);
+                    await SecureStorage.SetAsync("roleId", response.User.RoleId.ToString());
+                    await SecureStorage.SetAsync("userId", response.User.UserId.ToString());
+                    await SecureStorage.SetAsync("userName", response.User.UserName);
                 }
                 else
                 {
                     // Still store for current session, but you could
                     // use a separate in-memory/session-only store here
-                    await SecureStorage.SetAsync("token", token);
+                    await SecureStorage.SetAsync("token", response.Token);
+                    await SecureStorage.SetAsync("roleId", response.User.RoleId.ToString());
+                    await SecureStorage.SetAsync("userId", response.User.UserId.ToString());
+                    await SecureStorage.SetAsync("userName", response.User.UserName);
                 }
 
-                var appShell = _serviceProvider.GetRequiredService<AppShell>();
-                Application.Current!.Windows[0].Page = appShell;
+                if(response.User.RoleId == 1)
+                {
+                    var appShell = _serviceProvider.GetRequiredService<AppShell>();
+                    Application.Current!.Windows[0].Page = appShell;
+                }
+                else if (response.User.RoleId == 2)
+                {
+                    var appShell = _serviceProvider.GetRequiredService<AppShellStore>();
+                    Application.Current!.Windows[0].Page = appShell;
+                }
+                else
+                {
+                    await Application.Current!.Windows[0].Page!
+                        .DisplayAlert("Error", "Unknown role. Cannot navigate.", "OK");
+                }
+
             }
             else
             {

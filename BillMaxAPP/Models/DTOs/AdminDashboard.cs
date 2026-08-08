@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BillMaxAPP.Models
+﻿namespace BillMaxAPP.Models
 {
     public class AdminDashboard
     {
-
+        
 
         public int TotalStores { get; set; }
 
@@ -40,9 +36,9 @@ namespace BillMaxAPP.Models
     public class SalesTrend
     {
         public DateTime SaleDate { get; set; }
-        public string SaleRang { get; set; }
 
         public decimal TotalSales { get; set; }
+        public string SaleRang { get; set; }
     }
 
 }

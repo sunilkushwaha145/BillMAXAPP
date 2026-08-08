@@ -45,6 +45,8 @@ public static class MauiProgram
         builder.Services.AddTransient<AdminDashboardPage>();
         builder.Services.AddTransient<AdminDashboardViewModel>();
         builder.Services.AddTransient<SplashPage>();
+        builder.Services.AddTransient<AppShellStore>();
+        builder.Services.AddTransient<StoreDashboardViewModel>();
 
         return builder.Build();
     }

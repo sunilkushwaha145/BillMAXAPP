@@ -1,6 +1,5 @@
 ﻿using BillMaxAPP.Services.Interfaces;
 using BillMaxAPP.Views;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace BillMaxAPP
 {

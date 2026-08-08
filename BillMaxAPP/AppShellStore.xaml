@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Shell
+    x:Class="BillMaxAPP.AppShellStore"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:BillMaxAPP.Views"
+    FlyoutBehavior="Flyout">
+
+
+    <!-- ===================================================== -->
+    <!-- STORE MAIN -->
+    <!-- BOTTOM TABS -->
+    <!-- ===================================================== -->
+
+    <FlyoutItem
+        Title="Store"
+        Icon="store.png"
+        Route="store">
+
+        <!-- ================= DASHBOARD ================= -->
+
+        <Tab
+            Title="Dashboard"
+            Icon="home.png"
+            Route="dashboard">
+
+            <ShellContent
+                Title="Dashboard"
+                ContentTemplate="{DataTemplate views:StoreDashboardPage}" />
+
+        </Tab>
+
+
+        <!-- ================= PRODUCTS ================= -->
+
+        <Tab
+            Title="Products"
+            Icon="product.png"
+            Route="products">
+
+            <ShellContent
+                Title="Products"
+                ContentTemplate="{DataTemplate views:ProductListPage}" />
+
+        </Tab>
+
+        <Tab
+Title="Bill"
+Icon="zilll.png"
+Route="billing">
+
+            <ShellContent
+    Title="billing"
+    ContentTemplate="{DataTemplate views:CreateBillPage}" />
+
+        </Tab>
+        <!-- ================= INVOICES ================= -->
+
+        <Tab
+            Title="Invoices"
+            Icon="invoice.png"
+            Route="invoices">
+
+            <ShellContent
+                Title="Invoices"
+                ContentTemplate="{DataTemplate views:InvoiceListPage}" />
+
+        </Tab>
+
+        
+
+
+
+        <!-- ================= REPORTS ================= -->
+
+        <Tab
+            Title="Reports"
+            Icon="report.png"
+            Route="reports">
+
+            <ShellContent
+                Title="Reports"
+                ContentTemplate="{DataTemplate views:DailyReportPage}" />
+
+        </Tab>
+
+    </FlyoutItem>
+
+
+    <!-- ===================================================== -->
+    <!-- DRAWER -->
+    <!-- ===================================================== -->
+
+
+    <!-- ================= PRODUCTS ================= -->
+
+    <FlyoutItem
+        Title="Products"
+        Icon="product.png"
+        Route="productmenu">
+
+        <ShellContent
+            Title="Product List"
+            ContentTemplate="{DataTemplate views:ProductListPage}" />
+
+    </FlyoutItem>
+
+
+    <!-- ================= CATEGORIES ================= -->
+
+    <FlyoutItem
+        Title="Categories"
+        Icon="category.png"
+        Route="categories">
+
+        <ShellContent
+            Title="Categories"
+            ContentTemplate="{DataTemplate views:CategoryListPage}" />
+
+    </FlyoutItem>
+
+
+    <!-- ================= INVOICES ================= -->
+
+    <FlyoutItem
+        Title="Invoice List"
+        Icon="invoice.png"
+        Route="invoicelist">
+
+        <ShellContent
+            Title="Invoice List"
+            ContentTemplate="{DataTemplate views:InvoiceListPage}" />
+
+    </FlyoutItem>
+
+
+    <!-- ================= DAILY REPORT ================= -->
+
+    <FlyoutItem
+        Title="Daily Report"
+        Icon="report.png"
+        Route="dailyreport">
+
+        <ShellContent
+            Title="Daily Report"
+            ContentTemplate="{DataTemplate views:DailyReportPage}" />
+
+    </FlyoutItem>
+
+
+    <!-- ================= MONTHLY REPORT ================= -->
+
+    <FlyoutItem
+        Title="Monthly Report"
+        Icon="report.png"
+        Route="monthlyreport">
+
+        <ShellContent
+            Title="Monthly Report"
+            ContentTemplate="{DataTemplate views:MonthlyReportPage}" />
+
+    </FlyoutItem>
+
+
+    <!-- ================= STORE PROFILE ================= -->
+
+    <FlyoutItem
+        Title="Store Profile"
+        Icon="profile.png"
+        Route="storeprofile">
+
+        <ShellContent
+            Title="Store Profile"
+            ContentTemplate="{DataTemplate views:StoreProfilePage}" />
+
+    </FlyoutItem>
+
+
+    <!-- ================= INVOICE SETTINGS ================= -->
+
+    <FlyoutItem
+        Title="Invoice Settings"
+        Icon="settings.png"
+        Route="invoicesettings">
+
+        <ShellContent
+            Title="Invoice Settings"
+            ContentTemplate="{DataTemplate views:InvoiceSettingPage}" />
+
+    </FlyoutItem>
+
+
+    <!-- ================= CHANGE PASSWORD ================= -->
+
+    <FlyoutItem
+        Title="Change Password"
+        Icon="password.png"
+        Route="changepassword">
+
+        <ShellContent
+            Title="Change Password"
+            ContentTemplate="{DataTemplate views:ChangePasswordPage}" />
+
+    </FlyoutItem>
+
+
+    <!-- ===================================================== -->
+    <!-- FLYOUT FOOTER -->
+    <!-- ===================================================== -->
+
+    <Shell.FlyoutFooter>
+
+        <Grid
+            Padding="20,15"
+            BackgroundColor="White">
+
+            <Button
+                Text="Logout"
+                Clicked="OnLogoutClicked"
+                BackgroundColor="#EF4444"
+                TextColor="White"
+                CornerRadius="10"
+                HeightRequest="45"
+                FontAttributes="Bold" />
+
+        </Grid>
+
+    </Shell.FlyoutFooter>
+
+</Shell>

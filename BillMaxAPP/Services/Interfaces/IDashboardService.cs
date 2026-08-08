@@ -7,6 +7,7 @@ namespace BillMaxAPP.Services.Interfaces
 {
     public interface IDashboardService
     {
-        Task<ResJsonOutput?> GetAdminDashboardAsync();
+        Task<AdminDashboard?> GetAdminDashboardAsync();
+        Task<StoreDashboard?> GetStoreDashboardAsync();
     }
 }

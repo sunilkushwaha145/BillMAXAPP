@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BillMaxAPP.Views.StoreDashboardPage"
+             xmlns:components="clr-namespace:BillMaxAPP.Views.Components"
+Title="Store Dashboard"
+BackgroundColor="#F5F7FA">
+    <ScrollView>
+
+        <VerticalStackLayout
+            Padding="15"
+            Spacing="20">
+
+
+            <Grid
+        Padding="4,8"
+        ColumnDefinitions="*,Auto"
+        VerticalOptions="Center">
+
+                <!-- Left Side -->
+                <VerticalStackLayout Spacing="2">
+
+                    <Label
+                Text="Store Dashboard"
+                FontSize="20"
+                FontAttributes="Bold"   
+                TextColor="#1F2937" />
+
+                    <Label
+                Text="Overview of all stores and platform activity"
+                FontSize="12"
+                TextColor="#6B7280" />
+
+                </VerticalStackLayout>
+
+                <!-- Right Side -->
+                <Button
+            Grid.Column="1"
+HeightRequest="35"
+BackgroundColor="#2563EB"
+CornerRadius="8"
+FontSize="12"
+Text="+ New Bill"
+FontAttributes="Bold"  
+TextColor="White"
+            VerticalOptions="Center" />
+
+            </Grid>
+
+
+
+            <!-- Summary Cards -->
+
+            <Grid
+    ColumnDefinitions="*,*"
+    RowDefinitions="Auto,Auto"
+    ColumnSpacing="15"
+    RowSpacing="15">
+
+
+                <components:DashboardCard
+Grid.Row="0"
+Grid.Column="0"
+Title="TODAY'S SALES"
+Value="{Binding Dashboard.TodaySales}"
+Subtitle="{Binding Dashboard.TodaySalesGrowth, StringFormat='{0} New'}"
+Icon="store.png"
+CardColor="#3B82F6"/>
+                <components:DashboardCard
+        Grid.Row="0"
+        Grid.Column="1"
+        Title="MONTHLY SALES"
+        Value="{Binding Dashboard.MonthlySales}"
+        Subtitle="{Binding Dashboard.MonthlySalesGrowth, StringFormat='{0} New'}"
+        Icon="bill.png"
+        CardColor="#F59E0B"/>
+
+                <components:DashboardCard
+        Grid.Row="1"
+        Grid.Column="0"
+        Title="PRODUCTS"
+        Value="{Binding Dashboard.TotalProducts}"
+        Subtitle="{Binding Dashboard.TotalProducts, StringFormat='{0} Today'}"
+        Icon="product.png"
+        CardColor="#10B981"/>
+
+
+
+                <components:DashboardCard
+        Grid.Row="1"
+        Grid.Column="1"
+        Title="BILLS"
+        Value="{Binding Dashboard.TotalBills}"
+        Subtitle="{Binding Dashboard.TodayBillsCount, StringFormat='{0}% Today'}"
+        Icon="sales.png"
+        CardColor="#EF4444"/>
+
+            </Grid>
+
+
+            <components:LowStockCard
+LowStockProducts="{Binding Dashboard.LowStockProducts}" />
+
+
+            <components:RecentBillsCard
+    ItemsSource="{Binding Dashboard.RecentBills}" />
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+</ContentPage>

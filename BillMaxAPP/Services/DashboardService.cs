@@ -16,9 +16,13 @@ namespace BillMaxAPP.Services
             _apiService = apiService;
         }
 
-        public async Task<ResJsonOutput?> GetAdminDashboardAsync()
+        public async Task<AdminDashboard?> GetAdminDashboardAsync()
         {
-            return await _apiService.GetAsync<ResJsonOutput>(ApiRoutes.AdminDashboard);
+            return await _apiService.GetAsync<AdminDashboard>(ApiRoutes.AdminDashboard);
+        }
+        public async Task<StoreDashboard?> GetStoreDashboardAsync()
+        {
+            return await _apiService.GetAsync<StoreDashboard>(ApiRoutes.StoreDashboard);
         }
     }
 }

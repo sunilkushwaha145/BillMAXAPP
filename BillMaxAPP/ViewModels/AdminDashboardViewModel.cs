@@ -1,7 +1,5 @@
 ﻿using BillMaxAPP.Models;
-using BillMaxAPP.Services;
 using BillMaxAPP.Services.Interfaces;
-using BillMaxAPP.Views;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -58,25 +56,21 @@ public class AdminDashboardViewModel : INotifyPropertyChanged
     {
         try
         {
-            ResJsonOutput result = new ResJsonOutput();
-            result = await _dashboardService.GetAdminDashboardAsync();
+                AdminDashboard result = new AdminDashboard();
+                result = await _dashboardService.GetAdminDashboardAsync();
 
-            if(result!=null && result.Status.IsSuccess)
-            {
-                var options = new JsonSerializerOptions
+                if (result != null)
                 {
-                    PropertyNameCaseInsensitive = true
-                };
-                Dashboard = ((JsonElement)result.Data).Deserialize<AdminDashboard>(options);
-                WeekTrend = Dashboard.SalesTrend;
-                MonthTrend = Dashboard.MonthTrend;
-                YearTrend = Dashboard.YearTrend;
-                LoadWeek();
-            }
+                    Dashboard = result;
+                    WeekTrend = Dashboard.SalesTrend;
+                    MonthTrend = Dashboard.MonthTrend;
+                    YearTrend = Dashboard.YearTrend;
+                    LoadWeek();
+                }
             else
             {
                 await Application.Current!.Windows[0].Page!
-                .DisplayAlert("Error", result.Status.Message, "OK");
+                .DisplayAlert("Error", "", "OK");
             }
         }
         catch (Exception ex)

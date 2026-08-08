@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentView
+    x:Class="BillMaxAPP.Views.Components.RecentBillsCard"
+    x:Name="Root"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:helpers="clr-namespace:BillMaxAPP.Helpers">
+
+
+    <ContentView.Resources>
+        <helpers:BoolToStatusConverter x:Key="BoolToStatusConverter" />
+    </ContentView.Resources>
+
+    <Border
+        BackgroundColor="White"
+        Stroke="#E5E7EB"
+        StrokeThickness="1"
+        Padding="0">
+
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="12" />
+        </Border.StrokeShape>
+
+        <VerticalStackLayout>
+
+            <!-- ================= HEADER ================= -->
+
+            <Grid
+                Padding="16,12"
+                ColumnDefinitions="*,Auto">
+
+                <Label
+                    Text="Recent Bills"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    TextColor="#111827"
+                    VerticalOptions="Center" />
+
+                <Button
+                    Grid.Column="1"
+                    Text="View all"
+                    BackgroundColor="Transparent"
+                    TextColor="#2563EB"
+                    FontSize="14"
+                    Padding="5,0"
+                    Command="{Binding ViewAllCommand,
+                                      Source={x:Reference Root}}" />
+
+            </Grid>
+
+
+            <!-- ================= BILL LIST ================= -->
+
+            <CollectionView
+                ItemsSource="{Binding ItemsSource,
+                                      Source={x:Reference Root}}"
+                SelectionMode="None"
+                Margin="12,0,12,12">
+
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <!-- BILL CARD -->
+
+                        <Border
+                            BackgroundColor="#FFFFFF"
+                            Stroke="#E5E7EB"
+                            StrokeThickness="1"
+                            Padding="12"
+                            Margin="0,4">
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10" />
+                            </Border.StrokeShape>
+
+                            <VerticalStackLayout
+                                Spacing="10">
+
+                                <!-- ================= TOP ROW ================= -->
+
+                                <Grid
+                                    ColumnDefinitions="*,Auto">
+
+                                    <!-- Invoice -->
+
+                                    <VerticalStackLayout
+                                        Spacing="2">
+
+                                        <Label
+                                            Text="INVOICE NO."
+                                            FontSize="10"
+                                            FontAttributes="Bold"
+                                            TextColor="#64748B" />
+
+                                        <Label
+                                            Text="{Binding InvoiceNo}"
+                                            FontSize="14"
+                                            FontAttributes="Bold"
+                                            TextColor="#1F2937"
+                                            LineBreakMode="TailTruncation" />
+
+                                    </VerticalStackLayout>
+
+
+                                    <!-- STATUS -->
+
+                                    <Border
+                                        Grid.Column="1"
+                                        BackgroundColor="#DCFCE7"
+                                        Padding="10,5"
+                                        VerticalOptions="Center">
+
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="6" />
+                                        </Border.StrokeShape>
+
+                                        <Label
+    Text="{Binding PayStatus,
+                   Converter={StaticResource BoolToStatusConverter}}"
+    FontSize="11"
+    FontAttributes="Bold"
+    TextColor="#15803D" />
+
+                                    </Border>
+
+                                </Grid>
+
+
+                                <!-- ================= CUSTOMER ================= -->
+
+                                <Grid
+                                    ColumnDefinitions="*,Auto">
+
+                                    <VerticalStackLayout
+                                        Spacing="2">
+
+                                        <Label
+                                            Text="CUSTOMER NAME"
+                                            FontSize="10"
+                                            FontAttributes="Bold"
+                                            TextColor="#64748B" />
+
+                                        <Label
+                                            Text="{Binding CustomerName}"
+                                             FontSize="17"
+ FontAttributes="Bold"
+ TextColor="#111827" />
+
+                                    </VerticalStackLayout>
+
+
+                                    <!-- ITEMS -->
+
+                                    <VerticalStackLayout
+                                        Grid.Column="1"
+                                        HorizontalOptions="End"
+                                        Spacing="2">
+
+                                        <Label
+                                            Text="ITEMS"
+                                            FontSize="10"
+                                            FontAttributes="Bold"
+                                            TextColor="#64748B"
+                                            HorizontalTextAlignment="End" />
+
+                                        <Label
+                                            Text="{Binding ItemsCount}"
+                                            FontSize="14"
+                                            TextColor="#374151"
+                                            HorizontalTextAlignment="End" />
+
+                                    </VerticalStackLayout>
+
+                                </Grid>
+
+
+                                <!-- ================= TOTAL + ACTION ================= -->
+
+                                <Grid
+                                    ColumnDefinitions="*,Auto">
+
+                                    <!-- TOTAL -->
+
+                                    <VerticalStackLayout
+                                        Spacing="2">
+
+                                        <Label
+                                            Text="TOTAL"
+                                            FontSize="10"
+                                            FontAttributes="Bold"
+                                            TextColor="#64748B" />
+
+                                        <Label
+                                            Text="{Binding GrandTotal, StringFormat='₹ {0:F2}'}"
+                                            FontSize="17"
+                                            FontAttributes="Bold"
+                                            TextColor="#111827" />
+
+                                    </VerticalStackLayout>
+
+
+                                    <!-- ACTIONS -->
+
+                                    <HorizontalStackLayout
+                                        Grid.Column="1"
+                                        Spacing="8"
+                                        VerticalOptions="End">
+
+                                        <!-- VIEW -->
+
+                                        <Border
+                                            WidthRequest="40"
+                                            HeightRequest="40"
+                                            BackgroundColor="#F8FAFC">
+
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="7" />
+                                            </Border.StrokeShape>
+
+                                            <ImageButton
+                                                Source="details.png"
+                                                BackgroundColor="Transparent"
+                                                Padding="10"
+                                                Command="{Binding
+                                                    BindingContext.ViewCommand,
+                                                    Source={x:Reference Root}}"
+                                                CommandParameter="{Binding .}" />
+
+                                        </Border>
+
+
+                                        <!-- PRINT -->
+
+                                        <Border
+                                            WidthRequest="40"
+                                            HeightRequest="40"
+                                            BackgroundColor="#F8FAFC">
+
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="7" />
+                                            </Border.StrokeShape>
+
+                                            <ImageButton
+                                                Source="print.png"
+                                                BackgroundColor="Transparent"
+                                                Padding="10"
+                                                Command="{Binding
+                                                    BindingContext.PrintCommand,
+                                                    Source={x:Reference Root}}"
+                                                CommandParameter="{Binding .}" />
+
+                                        </Border>
+
+                                    </HorizontalStackLayout>
+
+                                </Grid>
+
+                            </VerticalStackLayout>
+
+                        </Border>
+
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+        </VerticalStackLayout>
+
+    </Border>
+
+</ContentView>
