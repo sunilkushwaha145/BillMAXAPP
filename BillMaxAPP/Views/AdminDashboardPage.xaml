@@ -7,36 +7,41 @@
     Title="Dashboard"
     BackgroundColor="#F5F7FA">
 
-    <ScrollView>
+    <RefreshView
+    IsRefreshing="{Binding IsRefreshing}"
+    Command="{Binding RefreshCommand}"
+    RefreshColor="#2563EB">
 
-        <VerticalStackLayout
+        <ScrollView>
+
+            <VerticalStackLayout
             Padding="15"
             Spacing="20">
 
 
-            <Grid
+                <Grid
         Padding="4,8"
         ColumnDefinitions="*,Auto"
         VerticalOptions="Center">
 
-                <!-- Left Side -->
-                <VerticalStackLayout Spacing="2">
+                    <!-- Left Side -->
+                    <VerticalStackLayout Spacing="2">
 
-                    <Label
+                        <Label
                 Text="Admin Dashboard"
                 FontSize="20"
                 FontAttributes="Bold"   
                 TextColor="#1F2937" />
 
-                    <Label
+                        <Label
                 Text="Overview of all stores and platform activity"
                 FontSize="12"
                 TextColor="#6B7280" />
 
-                </VerticalStackLayout>
+                    </VerticalStackLayout>
 
-                <!-- Right Side -->
-                <Button
+                    <!-- Right Side -->
+                    <Button
             Grid.Column="1"
 HeightRequest="35"
 BackgroundColor="#2563EB"
@@ -46,20 +51,20 @@ Text="+ New Store"
 TextColor="White"
             VerticalOptions="Center" />
 
-            </Grid>
+                </Grid>
 
 
 
-            <!-- Summary Cards -->
+                <!-- Summary Cards -->
 
-            <Grid
+                <Grid
     ColumnDefinitions="*,*"
     RowDefinitions="Auto,Auto"
     ColumnSpacing="15"
     RowSpacing="15">
 
 
-                <components:DashboardCard
+                    <components:DashboardCard
 Grid.Row="0"
 Grid.Column="0"
 Title="Total Stores"
@@ -67,7 +72,7 @@ Value="{Binding Dashboard.TotalStores}"
 Subtitle="{Binding Dashboard.NewStoresThisMonth, StringFormat='{0} New'}"
 Icon="store.png"
 CardColor="#3B82F6"/>
-                <components:DashboardCard
+                    <components:DashboardCard
         Grid.Row="0"
         Grid.Column="1"
         Title="TOTAL BILLS"
@@ -76,7 +81,7 @@ CardColor="#3B82F6"/>
         Icon="bill.png"
         CardColor="#F59E0B"/>
 
-                <components:DashboardCard
+                    <components:DashboardCard
         Grid.Row="1"
         Grid.Column="0"
         Title="Total Products"
@@ -85,9 +90,9 @@ CardColor="#3B82F6"/>
         Icon="product.png"
         CardColor="#10B981"/>
 
-                
 
-                <components:DashboardCard
+
+                    <components:DashboardCard
         Grid.Row="1"
         Grid.Column="1"
         Title="Today's Sales"
@@ -96,25 +101,30 @@ CardColor="#3B82F6"/>
         Icon="sales.png"
         CardColor="#EF4444"/>
 
-            </Grid>
+                </Grid>
 
 
-            <!-- Sales Trend -->
-            <components:SalesTrendCard
+                <!-- Sales Trend -->
+                <components:SalesTrendCard
     TrendData="{Binding CurrentTrend}"
     WeekCommand="{Binding WeekCommand}"
     MonthCommand="{Binding MonthCommand}"
     YearCommand="{Binding YearCommand}" />
 
 
-            <!-- Top Stores -->
+                <!-- Top Stores -->
 
-            <components:TopStoreCard
+                <components:TopStoreCard
     TopStores="{Binding Dashboard.TopStores}" />
 
 
-        </VerticalStackLayout>
+            </VerticalStackLayout>
 
-    </ScrollView>
+        </ScrollView>
+
+    </RefreshView>
+
+
+    
 
 </ContentPage>

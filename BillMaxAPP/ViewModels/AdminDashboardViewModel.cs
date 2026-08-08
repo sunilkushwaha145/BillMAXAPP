@@ -13,6 +13,7 @@ public class AdminDashboardViewModel : INotifyPropertyChanged
     private readonly IDashboardService _dashboardService;
 
     private AdminDashboard? _dashboard;
+    private bool _isRefreshing;
 
     public AdminDashboard? Dashboard
     {
@@ -23,6 +24,11 @@ public class AdminDashboardViewModel : INotifyPropertyChanged
             OnPropertyChanged();
         }
     }
+    public bool IsRefreshing
+    {
+        get => _isRefreshing;
+        set { _isRefreshing = value; OnPropertyChanged(); }
+    }
 
     public ICommand LoadDashboardCommand { get; }
     public ICommand WeekCommand { get; }
@@ -30,6 +36,7 @@ public class AdminDashboardViewModel : INotifyPropertyChanged
     public ICommand MonthCommand { get; }
 
     public ICommand YearCommand { get; }
+    public ICommand RefreshCommand { get; }
 
     public List<SalesTrend> WeekTrend { get; set; }
 
@@ -45,6 +52,7 @@ public class AdminDashboardViewModel : INotifyPropertyChanged
         _dashboardService = dashboardService;
 
         LoadDashboardCommand = new Command(async () => await LoadDashboardAsync());
+        RefreshCommand = new Command(async () => await RefreshDashboardAsync());
         WeekCommand = new Command(LoadWeek);
 
         MonthCommand = new Command(LoadMonth);
@@ -80,6 +88,12 @@ public class AdminDashboardViewModel : INotifyPropertyChanged
         }
     }
 
+    private async Task RefreshDashboardAsync()
+    {
+        IsRefreshing = true;
+        await LoadDashboardAsync();
+        IsRefreshing = false;
+    }
     public event PropertyChangedEventHandler? PropertyChanged;
 
     protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
