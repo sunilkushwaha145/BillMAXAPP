@@ -29,4 +29,9 @@ public partial class StoreDashboardPage : ContentPage
 
         await _viewModel.LoadDashboardAsync();
     }
+
+    private async void OnNewBillClicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("createbill");
+    }
 }

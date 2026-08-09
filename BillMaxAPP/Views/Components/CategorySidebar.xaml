@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentView
+    x:Class="BillMaxAPP.Views.Components.CategorySidebar"
+    x:Name="Root"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:helpers="clr-namespace:BillMaxAPP.Helpers"
+    xmlns:models="clr-namespace:BillMaxAPP.Models">
+
+    <ContentView.Resources>
+
+        <helpers:FirstLetterConverter
+            x:Key="FirstLetterConverter" />
+
+        <helpers:StringNotEmptyConverter
+            x:Key="StringNotEmptyConverter" />
+
+    </ContentView.Resources>
+
+
+    <Border
+        BackgroundColor="#F8FAFC"
+        StrokeThickness="0"
+        Padding="0">
+
+        <CollectionView
+            ItemsSource="{Binding Source={x:Reference Root}, Path=Categories}"
+            SelectionMode="None"
+            VerticalScrollBarVisibility="Never">
+
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate x:DataType="models:Category">
+
+                    <Grid
+                        ColumnDefinitions="4,*"
+                        HeightRequest="70">
+
+                        <!-- ============================= -->
+                        <!-- SELECTED GREEN INDICATOR -->
+                        <!-- ============================= -->
+
+                        <BoxView
+                            Grid.Column="0"
+                            Color="#3B82F6"
+                            IsVisible="{Binding IsSelected}" />
+
+
+                        <!-- ============================= -->
+                        <!-- CATEGORY CONTENT -->
+                        <!-- ============================= -->
+
+                        <VerticalStackLayout
+                            Grid.Column="1"
+                            Spacing="4"
+                            Padding="6,8"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center">
+
+
+                            <!-- ============================= -->
+                            <!-- CATEGORY IMAGE -->
+                            <!-- ============================= -->
+
+                            <Border
+                                WidthRequest="30"
+                                HeightRequest="30"
+                                Padding="0"
+                                StrokeThickness="0"
+                                HorizontalOptions="Center">
+
+                                <Border.Triggers>
+
+                                    <DataTrigger
+                                        TargetType="Border"
+                                        Binding="{Binding IsSelected}"
+                                        Value="True">
+
+                                        <Setter
+                                            Property="BackgroundColor"
+                                            Value="red" />
+
+                                    </DataTrigger>
+
+                                    <DataTrigger
+                                        TargetType="Border"
+                                        Binding="{Binding IsSelected}"
+                                        Value="False">
+
+                                        <Setter
+                                            Property="BackgroundColor"
+                                            Value="blue" />
+
+                                    </DataTrigger>
+
+                                </Border.Triggers>
+
+
+                                <Border.StrokeShape>
+
+                                    <RoundRectangle
+                                        CornerRadius="21" />
+
+                                </Border.StrokeShape>
+
+
+                                <Grid>
+
+                                    <!-- Category Image -->
+
+                                    <Image
+                                        Source="{Binding IconUrl}"
+                                        Aspect="AspectFill"
+                                        IsVisible="{Binding IconUrl,
+                                            Converter={StaticResource StringNotEmptyConverter}}" />
+
+
+                                    <!-- First Letter -->
+
+                                    <Label
+                                        Text="{Binding Text,
+                                            Converter={StaticResource FirstLetterConverter}}"
+                                        TextColor="#3B82F6"
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center" />
+
+                                </Grid>
+
+                            </Border>
+
+
+                            <!-- ============================= -->
+                            <!-- CATEGORY NAME -->
+                            <!-- ============================= -->
+
+                            <Label
+                                Text="{Binding Text}"
+                                FontSize="11"
+                                MaxLines="2"
+                                LineBreakMode="TailTruncation"
+                                HorizontalTextAlignment="Center">
+
+                                <Label.Triggers>
+
+                                    <DataTrigger
+                                        TargetType="Label"
+                                        Binding="{Binding IsSelected}"
+                                        Value="True">
+
+                                        <Setter
+                                            Property="TextColor"
+                                            Value="#166534" />
+
+                                        <Setter
+                                            Property="FontAttributes"
+                                            Value="Bold" />
+
+                                    </DataTrigger>
+
+
+                                    <DataTrigger
+                                        TargetType="Label"
+                                        Binding="{Binding IsSelected}"
+                                        Value="False">
+
+                                        <Setter
+                                            Property="TextColor"
+                                            Value="#6B7280" />
+
+                                        <Setter
+                                            Property="FontAttributes"
+                                            Value="None" />
+
+                                    </DataTrigger>
+
+                                </Label.Triggers>
+
+                            </Label>
+
+                        </VerticalStackLayout>
+
+
+                        <!-- ============================= -->
+                        <!-- CATEGORY CLICK -->
+                        <!-- ============================= -->
+
+                        <Grid.GestureRecognizers>
+
+                            <TapGestureRecognizer
+                                Command="{Binding Source={x:Reference Root},
+                                    Path=SelectCommand}"
+                                CommandParameter="{Binding .}" />
+
+                        </Grid.GestureRecognizers>
+
+                    </Grid>
+
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+    </Border>
+
+</ContentView>

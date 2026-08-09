@@ -8,6 +8,10 @@ public partial class AppShellStore : Shell
     public AppShellStore()
     {
         InitializeComponent();
+
+        // Create Bill is opened on demand (via the "+" button), not shown as
+        // a bottom tab — register it as a navigable route instead.
+        Routing.RegisterRoute("createbill", typeof(CreateBillPage));
     }
     private async void OnLogoutClicked(object sender, EventArgs e)
     {

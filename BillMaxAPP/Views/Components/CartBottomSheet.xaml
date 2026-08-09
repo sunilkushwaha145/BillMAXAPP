@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="BillMaxAPP.Views.Components.CartBottomSheet"
+    x:Name="Root"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:BillMaxAPP.Models">
+
+    <!-- Root is an overlay: dim background + sliding card -->
+    <Grid>
+
+        <BoxView
+            BackgroundColor="#80000000"
+            Opacity="1">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding CloseCommand, Source={x:Reference Root}}" />
+            </BoxView.GestureRecognizers>
+        </BoxView>
+
+        <Border
+            VerticalOptions="End"
+            BackgroundColor="White"
+            StrokeThickness="0"
+            MaximumHeightRequest="560"
+            Padding="0">
+
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="20,20,0,0" />
+            </Border.StrokeShape>
+
+            <Grid RowDefinitions="Auto,*,Auto">
+
+                <!-- Header -->
+                <Grid Grid.Row="0" Padding="18,16,18,10" ColumnDefinitions="*,Auto">
+                    <Label Text="Your Cart" FontSize="18" FontAttributes="Bold" TextColor="#111827" />
+                    <ImageButton
+                        Grid.Column="1"
+                        Source="close.png"
+                        BackgroundColor="Transparent"
+                        WidthRequest="24"
+                        HeightRequest="24"
+                        Command="{Binding CloseCommand, Source={x:Reference Root}}" />
+                </Grid>
+
+                <!-- Cart lines -->
+                <CollectionView
+                    Grid.Row="1"
+                    ItemsSource="{Binding CartItems, Source={x:Reference Root}}"
+                    SelectionMode="None"
+                    Margin="18,0">
+
+                    <CollectionView.ItemTemplate>
+
+                        <DataTemplate x:DataType="models:CartItem">
+
+                            <Grid ColumnDefinitions="50,*,Auto" Padding="0,10">
+
+                                <Image
+                                    Grid.Column="0"
+                                    Source="{Binding ProductImage}"
+                                    WidthRequest="44"
+                                    HeightRequest="44"
+                                    Aspect="AspectFill" />
+
+                                <VerticalStackLayout Grid.Column="1" Margin="10,0" Spacing="2" VerticalOptions="Center">
+                                    <Label Text="{Binding ProductName}" FontSize="14" FontAttributes="Bold" TextColor="#111827" />
+                                    <Label Text="{Binding UnitPrice, StringFormat='₹{0:F2}'}" FontSize="12" TextColor="#6B7280" />
+                                    <Label Text="{Binding ItemTotal, StringFormat='Total: ₹{0:F2}'}" FontSize="12" TextColor="#16A34A" />
+                                </VerticalStackLayout>
+
+                                <HorizontalStackLayout Grid.Column="2" Spacing="8" VerticalOptions="Center">
+
+                                    <Button
+                                        Text="-"
+                                        WidthRequest="30"
+                                        HeightRequest="30"
+                                        Padding="0"
+                                        CornerRadius="15"
+                                        BackgroundColor="#F3F4F6"
+                                        TextColor="#111827"
+                                        Command="{Binding Source={x:Reference Root}, Path=DecreaseCommand}"
+                                        CommandParameter="{Binding .}" />
+
+                                    <Label Text="{Binding Quantity}" VerticalOptions="Center" WidthRequest="20" HorizontalTextAlignment="Center" />
+
+                                    <Button
+                                        Text="+"
+                                        WidthRequest="30"
+                                        HeightRequest="30"
+                                        Padding="0"
+                                        CornerRadius="15"
+                                        BackgroundColor="#16A34A"
+                                        TextColor="White"
+                                        Command="{Binding Source={x:Reference Root}, Path=IncreaseCommand}"
+                                        CommandParameter="{Binding .}" />
+
+                                </HorizontalStackLayout>
+
+                            </Grid>
+
+                        </DataTemplate>
+
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+
+                <!-- Totals + Generate Bill -->
+                <VerticalStackLayout Grid.Row="2" Padding="18,10,18,20" Spacing="6" BackgroundColor="#F9FAFB">
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Subtotal" TextColor="#6B7280" FontSize="13" />
+                        <Label Grid.Column="1" Text="{Binding SubTotal, Source={x:Reference Root}, StringFormat='₹{0:F2}'}" FontSize="13" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="CGST" TextColor="#6B7280" FontSize="13" />
+                        <Label Grid.Column="1" Text="{Binding CGST, Source={x:Reference Root}, StringFormat='₹{0:F2}'}" FontSize="13" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="SGST" TextColor="#6B7280" FontSize="13" />
+                        <Label Grid.Column="1" Text="{Binding SGST, Source={x:Reference Root}, StringFormat='₹{0:F2}'}" FontSize="13" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,Auto" Margin="0,4,0,10">
+                        <Label Text="Grand Total" FontAttributes="Bold" FontSize="16" TextColor="#111827" />
+                        <Label Grid.Column="1" Text="{Binding GrandTotal, Source={x:Reference Root}, StringFormat='₹{0:F2}'}" FontAttributes="Bold" FontSize="16" TextColor="#111827" />
+                    </Grid>
+
+                    <Button
+                        Text="GENERATE BILL"
+                        HeightRequest="50"
+                        CornerRadius="12"
+                        BackgroundColor="#16A34A"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        Command="{Binding GenerateBillCommand, Source={x:Reference Root}}" />
+
+                </VerticalStackLayout>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</ContentView>

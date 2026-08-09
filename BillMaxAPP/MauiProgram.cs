@@ -48,6 +48,11 @@ public static class MauiProgram
         builder.Services.AddTransient<AppShellStore>();
         builder.Services.AddTransient<StoreDashboardViewModel>();
 
+        builder.Services.AddSingleton<ICategoryService, CategoryService>();
+        builder.Services.AddSingleton<IProductService, ProductService>();
+        builder.Services.AddSingleton<IBillService, BillService>();
+        builder.Services.AddTransient<CreateBillViewModel>();
+        builder.Services.AddTransient<CreateBillPage>();
         return builder.Build();
     }
 }

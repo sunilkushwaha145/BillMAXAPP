@@ -103,5 +103,56 @@ namespace BillMaxAPP.Services
                 throw;
             }
         }
+
+        public async Task<T?> GetAsync<T>(
+    string url,
+    Dictionary<string, string>? queryParams = null)
+        {
+            try
+            {
+                var token = await SecureStorage.GetAsync("token");
+
+                if (!string.IsNullOrWhiteSpace(token))
+                {
+                    _client.DefaultRequestHeaders.Authorization =
+                        new AuthenticationHeaderValue("Bearer", token);
+                }
+
+                // Build query string
+                if (queryParams != null && queryParams.Count > 0)
+                {
+                    var query = string.Join(
+                        "&",
+                        queryParams.Select(x =>
+                            $"{Uri.EscapeDataString(x.Key)}={Uri.EscapeDataString(x.Value)}"));
+
+                    url = $"{url}?{query}";
+                }
+
+                var response = await _client.GetAsync(
+                    ApiRoutes.BaseUrl + url);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    var error = await response.Content.ReadAsStringAsync();
+
+                    throw new Exception(
+                        $"Status : {response.StatusCode}\n\n{error}");
+                }
+
+                var json = await response.Content.ReadAsStringAsync();
+
+                return JsonSerializer.Deserialize<T>(
+                    json,
+                    new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 }

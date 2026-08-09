@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="BillMaxAPP.Views.Components.ProductCard"
+    x:Name="Root"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Border
+        BackgroundColor="White"
+        Stroke="#E5E7EB"
+        StrokeThickness="1"
+        Padding="10">
+
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="12" />
+        </Border.StrokeShape>
+
+        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="4">
+
+            <!-- Image + discount badge + favorite -->
+            <Grid Grid.Row="0" HeightRequest="90">
+
+                <Image
+                    Source="{Binding Product.ProductImage, Source={x:Reference Root}}"
+                    Aspect="AspectFit"
+                    HorizontalOptions="Center" />
+
+                <Border
+                    IsVisible="{Binding Product.Price, Source={x:Reference Root}}"
+                    BackgroundColor="#EF4444"
+                    Padding="6,2"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="6" />
+                    </Border.StrokeShape>
+                    <Label
+                        Text="{Binding Product.Price, Source={x:Reference Root}, StringFormat='{0}% OFF'}"
+                        FontSize="10"
+                        FontAttributes="Bold"
+                        TextColor="White" />
+                </Border>
+
+                <ImageButton
+                    Source="favorite.png"
+                    BackgroundColor="Transparent"
+                    WidthRequest="26"
+                    HeightRequest="26"
+                    HorizontalOptions="End"
+                    VerticalOptions="Start"
+                    Command="{Binding FavoriteCommand, Source={x:Reference Root}}"
+                    CommandParameter="{Binding Product, Source={x:Reference Root}}" />
+
+            </Grid>
+
+            <!-- Name -->
+            <Label
+                Grid.Row="1"
+                Text="{Binding Product.ProductName, Source={x:Reference Root}}"
+                FontSize="13"
+                FontAttributes="Bold"
+                TextColor="#111827"
+                LineBreakMode="TailTruncation"
+                MaxLines="2" />
+
+            <!-- Unit -->
+            <Label
+                Grid.Row="2"
+                Text="{Binding Product.Quantity, Source={x:Reference Root}}"
+                FontSize="11"
+                TextColor="#9CA3AF"
+                IsVisible="{Binding Product.Quantity, Source={x:Reference Root}}" />
+
+            <!-- Price row -->
+            <HorizontalStackLayout Grid.Row="3" Spacing="6">
+                <Label
+                    Text="{Binding Product.Price, Source={x:Reference Root}, StringFormat='₹{0:F2}'}"
+                    FontSize="14"
+                    FontAttributes="Bold"
+                    TextColor="#111827" />
+
+                <Label
+                    IsVisible="{Binding Product.GSTPercentage, Source={x:Reference Root}}"
+                    Text="{Binding Product.Price, Source={x:Reference Root}, StringFormat='₹{0:F2}'}"
+                    FontSize="12"
+                    TextColor="#9CA3AF"
+                    TextDecorations="Strikethrough" />
+            </HorizontalStackLayout>
+
+            <!-- Add button -->
+            <Button
+                Grid.Row="4"
+                Text="ADD"
+                HeightRequest="36"
+                FontSize="12"
+                FontAttributes="Bold"
+                CornerRadius="8"
+                BackgroundColor="#16A34A"
+                TextColor="White"
+                Command="{Binding AddCommand, Source={x:Reference Root}}"
+                CommandParameter="{Binding Product, Source={x:Reference Root}}" />
+
+        </Grid>
+
+    </Border>
+
+</ContentView>

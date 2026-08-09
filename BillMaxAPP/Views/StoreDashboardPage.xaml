@@ -43,6 +43,7 @@ FontSize="12"
 Text="+ New Bill"
 FontAttributes="Bold"  
 TextColor="White"
+Clicked="OnNewBillClicked"
             VerticalOptions="Center" />
 
             </Grid>

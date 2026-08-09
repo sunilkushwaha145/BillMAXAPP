@@ -45,16 +45,6 @@
 
         </Tab>
 
-        <Tab
-Title="Bill"
-Icon="zilll.png"
-Route="billing">
-
-            <ShellContent
-    Title="billing"
-    ContentTemplate="{DataTemplate views:CreateBillPage}" />
-
-        </Tab>
         <!-- ================= INVOICES ================= -->
 
         <Tab

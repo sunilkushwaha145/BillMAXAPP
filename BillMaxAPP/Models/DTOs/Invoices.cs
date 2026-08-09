@@ -7,7 +7,6 @@ namespace BillMaxAPP.Models
    
     public class Invoices:BaseColumns
     {
-        [Key]
         public int InvoiceId { get; set; }
 
         [ForeignKey(nameof(Customers))]
