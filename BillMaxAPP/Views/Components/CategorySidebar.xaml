@@ -43,8 +43,8 @@
 
                         <BoxView
                             Grid.Column="0"
-                            Color="#3B82F6"
-                            IsVisible="{Binding IsSelected}" />
+                            Color="#4338CA"
+                            IsVisible="{Binding Selected}" />
 
 
                         <!-- ============================= -->
@@ -74,23 +74,23 @@
 
                                     <DataTrigger
                                         TargetType="Border"
-                                        Binding="{Binding IsSelected}"
+                                        Binding="{Binding Selected}"
                                         Value="True">
 
                                         <Setter
                                             Property="BackgroundColor"
-                                            Value="red" />
+                                            Value="#F0EDFF" />
 
                                     </DataTrigger>
 
                                     <DataTrigger
                                         TargetType="Border"
-                                        Binding="{Binding IsSelected}"
+                                        Binding="{Binding Selected}"
                                         Value="False">
 
                                         <Setter
                                             Property="BackgroundColor"
-                                            Value="blue" />
+                                            Value="#c2d6d6" />
 
                                     </DataTrigger>
 
@@ -121,7 +121,7 @@
                                     <Label
                                         Text="{Binding Text,
                                             Converter={StaticResource FirstLetterConverter}}"
-                                        TextColor="#3B82F6"
+                                        TextColor="#4338CA"
                                         FontAttributes="Bold"
                                         HorizontalOptions="Center"
                                         VerticalOptions="Center" />
@@ -146,12 +146,12 @@
 
                                     <DataTrigger
                                         TargetType="Label"
-                                        Binding="{Binding IsSelected}"
+                                        Binding="{Binding Selected}"
                                         Value="True">
 
                                         <Setter
                                             Property="TextColor"
-                                            Value="#166534" />
+                                            Value="#4338CA" />
 
                                         <Setter
                                             Property="FontAttributes"
@@ -162,7 +162,7 @@
 
                                     <DataTrigger
                                         TargetType="Label"
-                                        Binding="{Binding IsSelected}"
+                                        Binding="{Binding Selected}"
                                         Value="False">
 
                                         <Setter
@@ -171,7 +171,7 @@
 
                                         <Setter
                                             Property="FontAttributes"
-                                            Value="None" />
+                                            Value="Bold" />
 
                                     </DataTrigger>
 

@@ -11,7 +11,7 @@ using System.Xml.Linq;
 
 namespace BillMaxAPP.ViewModels
 {
-    public class yeCreateBillViewModel : INotifyPropertyChanged
+    public class CreateBillViewModel : INotifyPropertyChanged
     {
         private readonly ICategoryService _categoryService;
         private readonly IProductService _productService;

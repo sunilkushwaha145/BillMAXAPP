@@ -1,107 +1,140 @@
 <?xml version="1.0" encoding="utf-8" ?>
+
 <ContentView
     x:Class="BillMaxAPP.Views.Components.ProductCard"
-    x:Name="Root"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Name="Root"
+    xmlns:helpers="clr-namespace:BillMaxAPP.Helpers">
 
     <Border
-        BackgroundColor="White"
-        Stroke="#E5E7EB"
-        StrokeThickness="1"
-        Padding="10">
+    BackgroundColor="White"
+    Stroke="#E5E7EB"
+    StrokeThickness="1"
+    Padding="8"
+    HeightRequest="200">
 
-        <Border.StrokeShape>
-            <RoundRectangle CornerRadius="12" />
-        </Border.StrokeShape>
+    <Border.StrokeShape>
+        <RoundRectangle CornerRadius="12" />
+    </Border.StrokeShape>
 
-        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="4">
+    <Grid
+        RowDefinitions="90,Auto,Auto"
+        RowSpacing="6">
 
-            <!-- Image + discount badge + favorite -->
-            <Grid Grid.Row="0" HeightRequest="90">
+        <!-- ================= IMAGE ================= -->
 
-                <Image
-                    Source="{Binding Product.ProductImage, Source={x:Reference Root}}"
-                    Aspect="AspectFit"
-                    HorizontalOptions="Center" />
+        <Grid
+            Grid.Row="0"
+            HeightRequest="90">
 
-                <Border
-                    IsVisible="{Binding Product.Price, Source={x:Reference Root}}"
-                    BackgroundColor="#EF4444"
-                    Padding="6,2"
-                    HorizontalOptions="Start"
-                    VerticalOptions="Start">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="6" />
-                    </Border.StrokeShape>
-                    <Label
-                        Text="{Binding Product.Price, Source={x:Reference Root}, StringFormat='{0}% OFF'}"
-                        FontSize="10"
-                        FontAttributes="Bold"
-                        TextColor="White" />
-                </Border>
-
-                <ImageButton
-                    Source="favorite.png"
-                    BackgroundColor="Transparent"
-                    WidthRequest="26"
-                    HeightRequest="26"
-                    HorizontalOptions="End"
-                    VerticalOptions="Start"
-                    Command="{Binding FavoriteCommand, Source={x:Reference Root}}"
-                    CommandParameter="{Binding Product, Source={x:Reference Root}}" />
-
-            </Grid>
-
-            <!-- Name -->
-            <Label
-                Grid.Row="1"
-                Text="{Binding Product.ProductName, Source={x:Reference Root}}"
-                FontSize="13"
-                FontAttributes="Bold"
-                TextColor="#111827"
-                LineBreakMode="TailTruncation"
-                MaxLines="2" />
-
-            <!-- Unit -->
-            <Label
-                Grid.Row="2"
-                Text="{Binding Product.Quantity, Source={x:Reference Root}}"
-                FontSize="11"
-                TextColor="#9CA3AF"
-                IsVisible="{Binding Product.Quantity, Source={x:Reference Root}}" />
-
-            <!-- Price row -->
-            <HorizontalStackLayout Grid.Row="3" Spacing="6">
-                <Label
-                    Text="{Binding Product.Price, Source={x:Reference Root}, StringFormat='₹{0:F2}'}"
-                    FontSize="14"
-                    FontAttributes="Bold"
-                    TextColor="#111827" />
-
-                <Label
-                    IsVisible="{Binding Product.GSTPercentage, Source={x:Reference Root}}"
-                    Text="{Binding Product.Price, Source={x:Reference Root}, StringFormat='₹{0:F2}'}"
-                    FontSize="12"
-                    TextColor="#9CA3AF"
-                    TextDecorations="Strikethrough" />
-            </HorizontalStackLayout>
-
-            <!-- Add button -->
-            <Button
-                Grid.Row="4"
-                Text="ADD"
-                HeightRequest="36"
-                FontSize="12"
-                FontAttributes="Bold"
-                CornerRadius="8"
-                BackgroundColor="#16A34A"
-                TextColor="White"
-                Command="{Binding AddCommand, Source={x:Reference Root}}"
-                CommandParameter="{Binding Product, Source={x:Reference Root}}" />
+            <Image
+                Source="{Binding Product.ProductImage,
+                Source={x:Reference Root},
+                StringFormat='https://billmax.store/ProductImages/{0}'}"
+                Aspect="AspectFit"
+                HorizontalOptions="Center"
+                VerticalOptions="Center" />
 
         </Grid>
 
-    </Border>
+
+        <!-- ================= PRODUCT NAME + QUANTITY ================= -->
+
+        <Grid
+            Grid.Row="1"
+            ColumnDefinitions="*,Auto"
+            ColumnSpacing="6">
+
+            <!-- Product Name -->
+
+            <Label
+                Grid.Column="0"
+                Text="{Binding Product.ProductName,
+                               Source={x:Reference Root}}"
+                FontSize="15"
+                FontAttributes="Bold"
+                TextColor="#374151"
+                LineBreakMode="TailTruncation"
+                MaxLines="1"
+                VerticalOptions="Center" />
+
+
+            <!-- Quantity -->
+
+            <Label
+                Grid.Column="1"
+                Text="{Binding Product.Quantity,
+                               Source={x:Reference Root}}"
+                FontSize="14"
+                TextColor="Orange"
+                VerticalOptions="Center"
+                HorizontalOptions="End" />
+
+        </Grid>
+
+
+        <!-- ================= PRICE + ADD ================= -->
+
+        <Grid
+            Grid.Row="2"
+            ColumnDefinitions="*,Auto"
+            ColumnSpacing="6">
+
+            <!-- Price -->
+
+            <Label
+                Grid.Column="0"
+                Text="{Binding Product.Price,
+                               Source={x:Reference Root},
+                               StringFormat='₹{0:F0}'}"
+                FontSize="16"
+                FontAttributes="Bold"
+                TextColor="#111827"
+                VerticalOptions="Center" />
+
+
+            <!-- Add Button -->
+
+            <Border
+                Grid.Column="1"
+                WidthRequest="80"
+                HeightRequest="30"
+                BackgroundColor="#F0EDFF"
+                StrokeThickness="0"
+                HorizontalOptions="End"
+                VerticalOptions="Center">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="0" />
+                </Border.StrokeShape>
+
+                <Label
+                    Text="Add "
+                    FontSize="14"
+                    TextColor="#4338CA"
+                    FontAttributes="Bold"
+                    HorizontalTextAlignment="Center"
+                    VerticalTextAlignment="Center"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center" />
+
+                <Border.GestureRecognizers>
+
+                    <TapGestureRecognizer
+                        Command="{Binding AddCommand,
+                                          Source={x:Reference Root}}"
+                        CommandParameter="{Binding Product,
+                                                   Source={x:Reference Root}}" />
+
+                </Border.GestureRecognizers>
+
+            </Border>
+
+        </Grid>
+
+    </Grid>
+
+</Border>
 
 </ContentView>
