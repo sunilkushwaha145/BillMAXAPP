@@ -1,13 +1,10 @@
 ﻿using BillMaxAPP.Models;
-using BillMaxAPP.Models.DTOs;
 using BillMaxAPP.Services.Interfaces;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Windows.Input;
-using System.Xml.Linq;
 
 namespace BillMaxAPP.ViewModels
 {
@@ -15,11 +12,31 @@ namespace BillMaxAPP.ViewModels
     {
         private readonly ICategoryService _categoryService;
         private readonly IProductService _productService;
+        private readonly IBillService _billService;
+        private bool _initialized;
+        private bool _isLoadingCategories;
+        private bool _isLoadingProducts;
 
         public ObservableCollection<CategoryOption> Categories { get; } = new();
         public ObservableCollection<Product> Products { get; } = new();
         public ObservableCollection<CartItem> CartItems { get; } = new();
 
+        public string? CustomerName { get; set; }
+        public string? CustomerMobile { get; set; }
+        private string _paymentType = "Cash";
+
+        public string PaymentType
+        {
+            get => _paymentType;
+            set
+            {
+                if (_paymentType == value)
+                    return;
+
+                _paymentType = value;
+                OnPropertyChanged();
+            }
+        }
         private CategoryOption? _selectedCategory;
         public CategoryOption? SelectedCategory
         {
@@ -52,10 +69,10 @@ namespace BillMaxAPP.ViewModels
 
         public int CartCount => CartItems.Sum(c => c.Qty);
 
-        public decimal SubTotal => CartItems.Sum(c => c.Price);
+        public decimal SubTotal => CartItems.Sum(c => c.ItemTotal);
 
         // Split GST 50/50 into CGST/SGST per line, using each line's own GST%.
-        public decimal CGST => CartItems.Sum(c => (c.Price * c.GSTPercentage / 100m) / 2m);
+        public decimal CGST => CartItems.Sum(c => (c.ItemTotal * c.GSTPercentage / 100m) / 2m);
         public decimal SGST => CGST;
 
         public decimal Discount { get; set; } = 0; // hook up a discount field/command later if needed
@@ -75,6 +92,8 @@ namespace BillMaxAPP.ViewModels
         public ICommand OpenCartCommand { get; }
         public ICommand CloseCartCommand { get; }
         public ICommand GenerateBillCommand { get; }
+        public ICommand SelectPaymentCommand { get; }
+
 
         public CreateBillViewModel(
             ICategoryService categoryService,
@@ -83,128 +102,192 @@ namespace BillMaxAPP.ViewModels
         {
             _categoryService = categoryService;
             _productService = productService;
-
+            _billService = billService;
             LoadCategoriesCommand = new Command(async () => await LoadCategoriesAsync());
             SelectCategoryCommand = new Command<CategoryOption>(async c => await SelectCategoryAsync(c));
-            AddToCartCommand = new Command<int>(async c => await AddToCart(c));
+            AddToCartCommand = new Command<Product>(async c => await AddToCart(c));
             IncreaseQtyCommand = new Command<CartItem>(IncreaseQty);
             DecreaseQtyCommand = new Command<CartItem>(DecreaseQty);
             RemoveFromCartCommand = new Command<CartItem>(RemoveFromCart);
             OpenCartCommand = new Command(() => IsCartSheetVisible = true);
             CloseCartCommand = new Command(() => IsCartSheetVisible = false);
             GenerateBillCommand = new Command(async () => await GenerateBillAsync(), () => !IsBusy && CartItems.Count > 0);
-
+            SelectPaymentCommand = new Command<string>(paymentType =>
+            {
+                PaymentType = paymentType;
+            });
             CartItems.CollectionChanged += (_, _) => RaiseCartTotalsChanged();
         }
 
         public async Task InitializeAsync()
         {
-            if (Categories.Count == 0)
-                await LoadCategoriesAsync();
+            if (_initialized)
+                return;
+
+            _initialized = true;
+
+            await LoadCategoriesAsync();
         }
 
         private async Task LoadCategoriesAsync()
         {
-            if (IsBusy) return;
+            if (_isLoadingCategories)
+                return;
 
             try
             {
-                IsBusy = true;
+                _isLoadingCategories = true;
+
                 EmptyStateMessage = null;
 
-                ResJsonOutput result = await _categoryService.GetCategoriesAsync();
+                ResJsonOutput result =
+                    await _categoryService.GetCategoriesAsync();
 
                 Categories.Clear();
 
-                if (!result.Status.IsSuccess)
+                if (result?.Status == null ||
+                    !result.Status.IsSuccess)
                 {
                     EmptyStateMessage = "No categories found.";
                     return;
                 }
-                else
-                {
-                    var options = new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true
-                    };
-                    var response = ((JsonElement)result.Data).Deserialize<List<CategoryOption>>(options);
 
-                    if (response == null || response.Count == 0)
-                    {
-                        EmptyStateMessage = "No products found in this category.";
-                        return;
-                    }
-                    foreach (var c in response)
-                        Categories.Add(c);
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+
+                var response =
+                    ((JsonElement)result.Data)
+                    .Deserialize<List<CategoryOption>>(options);
+
+                if (response == null || response.Count == 0)
+                {
+                    EmptyStateMessage = "No categories found.";
+                    return;
                 }
-                await SelectCategoryAsync(Categories.FirstOrDefault());
+
+                foreach (var category in response)
+                {
+                    Categories.Add(category);
+                }
+
+                System.Diagnostics.Debug.WriteLine(
+                    $"CATEGORY COUNT = {Categories.Count}");
+
+
+                // =================================================
+                // SELECT FIRST CATEGORY
+                // =================================================
+
+                var firstCategory = Categories.FirstOrDefault();
+
+                if (firstCategory != null)
+                {
+                    await SelectCategoryAsync(firstCategory);
+                }
             }
             catch (Exception ex)
             {
-                EmptyStateMessage = "Could not load categories. Please check your connection.";
-                await SafeShowAlert("Error", FriendlyError(ex));
+                EmptyStateMessage =
+                    "Could not load categories. Please check your connection.";
+
+                await SafeShowAlert(
+                    "Error",
+                    FriendlyError(ex));
             }
             finally
             {
-                IsBusy = false;
+                _isLoadingCategories = false;
             }
         }
 
         private async Task SelectCategoryAsync(CategoryOption? category)
         {
-            if (category == null) return;
+            if (category == null)
+                return;
 
-            foreach (var c in Categories)
-                c.Selected = c.Value == category.Value;
-
-            SelectedCategory = category;
+            if (_isLoadingProducts)
+                return;
 
             try
             {
-                IsBusy = true;
+                _isLoadingProducts = true;
+
                 EmptyStateMessage = null;
+
+                // Update selected category
+                foreach (var item in Categories)
+                {
+                    item.Selected = item.Value == category.Value;
+                }
+
+                SelectedCategory = category;
+
+                // Remove previous products
                 Products.Clear();
 
-                var result = await _productService.GetProductsByCategoryAsync(
-     new Dictionary<string, string>
-     {
-        { "catId", category.Value ?? string.Empty }
-     });
-
-                if (result.Status.IsSuccess)
-                {
-                    var options = new JsonSerializerOptions
+                var result =
+                    await _productService.GetProductsByCategoryAsync(
+                        new Dictionary<string, string>
+                        {
                     {
-                        PropertyNameCaseInsensitive = true
-                    };
-                    var response = ((JsonElement)result.Data).Deserialize<List<Product>>(options);
-
-                    if (response == null || response.Count == 0)
-                    {
-                        EmptyStateMessage = "No products found in this category.";
-                        return;
+                        "catId",
+                        category.Value ?? string.Empty
                     }
+                        });
 
-                    foreach (var p in response)
-                        Products.Add(p);
+                if (result?.Status == null ||
+                    !result.Status.IsSuccess)
+                {
+                    EmptyStateMessage =
+                        "No products found in this category.";
+
+                    return;
+                }
+
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+
+                var response =
+                    ((JsonElement)result.Data)
+                    .Deserialize<List<Product>>(options);
+
+                if (response == null || response.Count == 0)
+                {
+                    EmptyStateMessage =
+                        "No products found in this category.";
+
+                    return;
+                }
+
+                foreach (var product in response)
+                {
+                    Products.Add(product);
                 }
             }
             catch (Exception ex)
             {
-                EmptyStateMessage = "Could not load products. Please check your connection.";
-                await SafeShowAlert("Error", FriendlyError(ex));
+                EmptyStateMessage =
+                    "Could not load products. Please check your connection.";
+
+                await SafeShowAlert(
+                    "Error",
+                    FriendlyError(ex));
             }
             finally
             {
-                IsBusy = false;
+                _isLoadingProducts = false;
             }
         }
 
-        private async Task AddToCart(int ProductId)
+        private async Task AddToCart(Product Product)
         {
-            if (ProductId <= 0) return;
+            if (Product.ProductId <= 0) return;
 
-            var existing = CartItems.FirstOrDefault(c => c.ProductId == ProductId);
+            var existing = CartItems.FirstOrDefault(c => c.ProductId == Product.ProductId);
 
             if (existing != null)
             {
@@ -212,7 +295,7 @@ namespace BillMaxAPP.ViewModels
             }
             else
             {
-                ResJsonOutput result = await _productService.GetProductByID(ProductId);
+                ResJsonOutput result = await _productService.GetProductByID(Product.ProductId);
 
                 if (result.Status.IsSuccess)
                 {
@@ -225,11 +308,13 @@ namespace BillMaxAPP.ViewModels
                     CartItems.Add(new CartItem
                     {
                         ProductId = product.ProductId,
-                        ProductName = product.ProductName,
-                        //ProductImage = product.ProductImage,
-                        Price = (decimal)product.Price,
-                        GSTPercentage = product.IsGSTApplicable ? product.GSTPercentage : 0,
-                        Qty = 1
+                        ProductName = product.ProductName ?? string.Empty,
+                        UnitPrice = product.Price ?? 0m,
+                        GSTPercentage = product.IsGSTApplicable
+        ? product.GSTPercentage
+        : 0m,
+                        Qty = 1,
+                        ProductImage = product.ProductImage
                     });
                 }
 
@@ -275,8 +360,8 @@ namespace BillMaxAPP.ViewModels
             try
             {
                 IsBusy = true;
-
-                var request = new Invoices
+                CreateInvoiceRequest request=new CreateInvoiceRequest();
+                var invoices = new Invoices
                 {
                     SubTotal = SubTotal,
                     CGST = CGST,
@@ -284,33 +369,30 @@ namespace BillMaxAPP.ViewModels
                     Discount = Discount,
                     GrandTotal = GrandTotal,
                     PayType = "Cash",
-                    PayStatus = true
-                    //Iems = CartItems.Select(c => new CartItem
-                    //{
-                    //    ProductId = c.ProductId,
-                    //    Quantity = c.Quantity,q
-                    //    UnitPrice = c.UnitPrice,
-                    //    SubTotal = c.ItemTotal
-                    //}).ToList()
+                    PayStatus = true,
                 };
+                request.Invoices = invoices;
+                request.CartItem = CartItems.ToList();
+                request.CustomerName = CustomerName;
+                request.Mobile = CustomerMobile;    
+                request.Paytype = PaymentType;  
+                var response = await _billService.CreateBillAsync(request);
 
-                //var response = await _billService.CreateBillAsync(request);
+                if (response != null && response.Status.IsSuccess)
+                {
+                    await SafeShowAlert("Success", $"Bill {(string.IsNullOrWhiteSpace("test") ? "" : "test")} generated successfully.");
 
-                //if (response != null)
-                //{
-                //    await SafeShowAlert("Success", $"Bill {(string.IsNullOrWhiteSpace(response.InvoiceNo) ? "" : response.InvoiceNo)} generated successfully.");
+                    CartItems.Clear();
+                    IsCartSheetVisible = false;
+                    RaiseCartTotalsChanged();
 
-                //    CartItems.Clear();
-                //    IsCartSheetVisible = false;
-                //    RaiseCartTotalsChanged();
-
-                //    if (SelectedCategory != null)
-                //        await SelectCategoryAsync(SelectedCategory);
-                //}
-                //else
-                //{
-                //    await SafeShowAlert("Error", "Could not generate the bill. Please try again.");
-                //}
+                    if (SelectedCategory != null)
+                        await SelectCategoryAsync(SelectedCategory);
+                }
+                else
+                {
+                    await SafeShowAlert("Error", "Could not generate the bill. Please try again.");
+                }
             }
             catch (Exception ex)
             {

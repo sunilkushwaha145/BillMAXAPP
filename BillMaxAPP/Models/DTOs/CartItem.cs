@@ -1,18 +1,47 @@
-﻿namespace BillMaxAPP.Models
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
+namespace BillMaxAPP.Models;
+
+public class CartItem : INotifyPropertyChanged
 {
-    public class CartItem:BaseColumns
+    public int ProductId { get; set; }
+
+    public string? ProductName { get; set; }
+
+    public string? ProductImage { get; set; }
+
+    public decimal UnitPrice { get; set; }
+
+    public decimal GSTPercentage { get; set; }
+
+    private int _qty = 1;
+
+    public int Qty
     {
-        public int ProductId { get; set; }
-       
-        public string ProductName { get; set; }
+        get => _qty;
+        set
+        {
+            if (_qty == value)
+                return;
 
-        public decimal Price { get; set; }
+            _qty = value;
 
-        public decimal GSTPercentage { get; set; }
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(ItemTotal));
+        }
+    }
 
-        public int Qty { get; set; }
+    public decimal ItemTotal =>
+        UnitPrice * Qty;
 
-        public decimal PriceWithGST { get; set; }
-       
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected void OnPropertyChanged(
+        [CallerMemberName] string? propertyName = null)
+    {
+        PropertyChanged?.Invoke(
+            this,
+            new PropertyChangedEventArgs(propertyName));
     }
 }

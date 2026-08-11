@@ -15,12 +15,12 @@ public static class ApiRoutes
     // BILLING / CART
     // =========================
 
-    public const string CartCount = "api/Billing/cart-count";
-    public const string Cart = "api/Billing/cart";
-    public const string AddToCart = "api/Billing/cart/add";
-    public const string IncreaseCartItem = "api/Billing/cart/increase";
-    public const string DecreaseCartItem = "api/Billing/cart/decrease";
-    public const string CartSummary = "api/Billing/cart/summary";
+    public const string CartCount = "api/Billing/cart-count";//remove
+    public const string Cart = "api/Billing/cart";//remove
+    public const string AddToCart = "api/Billing/cart/add";//remove
+    public const string IncreaseCartItem = "api/Billing/cart/increase";//remove
+    public const string DecreaseCartItem = "api/Billing/cart/decrease";//remove
+    public const string CartSummary = "api/Billing/cart/summary";//remove
 
     public const string BillingHistory = "api/Billing/history";
     public const string BillingHistoryFilter = "api/Billing/history/filter";
@@ -62,7 +62,7 @@ public static class ApiRoutes
     // =========================
 
     public const string GetAllProducts = "api/Products/getallproducts";
-    public const string GetProductById = "api/Products/getproductbyid/{0}";
+    public const string GetProductById = "api/Products/getproductbyid";
     public const string AddProduct = "api/Products/addproducts";
     public const string UpdateProduct = "api/Products/updateproduct";
     public const string DeleteProduct = "api/Products/deleteproduct/{0}";

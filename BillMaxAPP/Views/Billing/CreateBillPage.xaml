@@ -63,7 +63,7 @@
 
         </Grid>
 
-        <!-- Bottom cart bar (only visible when cart has items) --><!--
+        <!-- Bottom cart bar (only visible when cart has items) -->
         <components:CartBar
             Margin="12"
             VerticalOptions="End"
@@ -72,7 +72,7 @@
             CartTotal="{Binding GrandTotal}"
             TapCommand="{Binding OpenCartCommand}" />
 
-        --><!-- Slide-up cart sheet overlay --><!--
+        <!-- Slide-up cart sheet overlay -->
         <components:CartBottomSheet
             IsVisible="{Binding IsCartSheetVisible}"
             CartItems="{Binding CartItems}"
@@ -83,7 +83,12 @@
             IncreaseCommand="{Binding IncreaseQtyCommand}"
             DecreaseCommand="{Binding DecreaseQtyCommand}"
             GenerateBillCommand="{Binding GenerateBillCommand}"
-            CloseCommand="{Binding CloseCartCommand}" />-->
+            CloseCommand="{Binding CloseCartCommand}" 
+            CustomerName="{Binding CustomerName}"
+    CustomerMobile="{Binding CustomerMobile}"
+    PaymentType="{Binding PaymentType}"
+            SelectPaymentCommand="{Binding SelectPaymentCommand}"
+            />
 
         <ActivityIndicator
             IsRunning="{Binding IsBusy}"

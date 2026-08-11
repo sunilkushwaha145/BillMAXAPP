@@ -13,6 +13,13 @@ namespace BillMaxAPP.Services
             _apiService = apiService;
         }
 
+        public async Task<ResJsonOutput> CreateBillAsync(CreateInvoiceRequest request)
+        {
+            // ASSUMPTION: route + request/response shape. See ApiRoutes.GenerateInvoice
+            // and CreateInvoiceRequest/ResJsonOutput.
+            return await _apiService.PostAsync<ResJsonOutput>(ApiRoutes.GenerateInvoice, request);
+        }
+
         //public async Task<BillCreateResponse?> CreateBillAsync(BillCreateRequest request)
         //{
         //    // ASSUMPTION: route + request/response shape. See ApiRoutes.CreateBill

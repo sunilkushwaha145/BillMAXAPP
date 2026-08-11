@@ -31,12 +31,8 @@ namespace BillMaxAPP.Models
 
         public bool PayStatus { get; set; }
 
-        //Navigation
-        public Customers Customers { get; set; }
         //[ForeignKey(nameof(Store))]
         public int? StoreId { get; set; }
-
-        public Store Store { get; set; }
     }
 }
 

@@ -12,14 +12,14 @@
     Stroke="#E5E7EB"
     StrokeThickness="1"
     Padding="8"
-    HeightRequest="200">
+    HeightRequest="170">
 
     <Border.StrokeShape>
         <RoundRectangle CornerRadius="12" />
     </Border.StrokeShape>
 
     <Grid
-        RowDefinitions="90,Auto,Auto"
+        RowDefinitions="80,Auto,Auto"
         RowSpacing="6">
 
         <!-- ================= IMAGE ================= -->

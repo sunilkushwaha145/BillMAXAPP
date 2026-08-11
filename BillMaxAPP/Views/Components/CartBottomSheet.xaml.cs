@@ -55,4 +55,60 @@ public partial class CartBottomSheet : ContentView
     public static readonly BindableProperty CloseCommandProperty =
         BindableProperty.Create(nameof(CloseCommand), typeof(ICommand), typeof(CartBottomSheet));
     public ICommand CloseCommand { get => (ICommand)GetValue(CloseCommandProperty); set => SetValue(CloseCommandProperty, value); }
+
+    public static readonly BindableProperty CustomerNameProperty =
+    BindableProperty.Create(
+        nameof(CustomerName),
+        typeof(string),
+        typeof(CartBottomSheet),
+        null,
+        defaultBindingMode: BindingMode.TwoWay);
+
+    public string? CustomerName
+    {
+        get => (string?)GetValue(CustomerNameProperty);
+        set => SetValue(CustomerNameProperty, value);
+    }
+
+
+    public static readonly BindableProperty CustomerMobileProperty =
+        BindableProperty.Create(
+            nameof(CustomerMobile),
+            typeof(string),
+            typeof(CartBottomSheet),
+            null,
+            defaultBindingMode: BindingMode.TwoWay);
+
+    public string? CustomerMobile
+    {
+        get => (string?)GetValue(CustomerMobileProperty);
+        set => SetValue(CustomerMobileProperty, value);
+    }
+
+
+    public static readonly BindableProperty PaymentTypeProperty =
+        BindableProperty.Create(
+            nameof(PaymentType),
+            typeof(string),
+            typeof(CartBottomSheet),
+            "Cash",
+            defaultBindingMode: BindingMode.TwoWay);
+
+    public string PaymentType
+    {
+        get => (string)GetValue(PaymentTypeProperty);
+        set => SetValue(PaymentTypeProperty, value);
+    }
+
+    public static readonly BindableProperty SelectPaymentCommandProperty =
+    BindableProperty.Create(
+        nameof(SelectPaymentCommand),
+        typeof(ICommand),
+        typeof(CartBottomSheet));
+
+    public ICommand SelectPaymentCommand
+    {
+        get => (ICommand)GetValue(SelectPaymentCommandProperty);
+        set => SetValue(SelectPaymentCommandProperty, value);
+    }
 }

@@ -31,7 +31,7 @@
 
             <CollectionView.ItemTemplate>
 
-                <DataTemplate x:DataType="models:Category">
+                <DataTemplate x:DataType="models:CategoryOption">
 
                     <Grid
                         ColumnDefinitions="4,*"
