@@ -47,7 +47,7 @@ public static class MauiProgram
         builder.Services.AddTransient<SplashPage>();
         builder.Services.AddTransient<AppShellStore>();
         builder.Services.AddTransient<StoreDashboardViewModel>();
-
+        builder.Services.AddTransient<InvoiceListViewModel>();
         builder.Services.AddSingleton<ICategoryService, CategoryService>();
         builder.Services.AddSingleton<IProductService, ProductService>();
         builder.Services.AddSingleton<IBillService, BillService>();

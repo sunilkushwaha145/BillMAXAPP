@@ -7,7 +7,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:helpers="clr-namespace:BillMaxAPP.Helpers">
 
-
     <ContentView.Resources>
         <helpers:BoolToStatusConverter x:Key="BoolToStatusConverter" />
     </ContentView.Resources>
@@ -24,12 +23,7 @@
 
         <VerticalStackLayout>
 
-            <!-- ================= HEADER ================= -->
-
-            <Grid
-                Padding="16,12"
-                ColumnDefinitions="*,Auto">
-
+            <Grid Padding="16,12" ColumnDefinitions="*,Auto">
                 <Label
                     Text="Recent Bills"
                     FontSize="16"
@@ -44,176 +38,101 @@
                     TextColor="#2563EB"
                     FontSize="14"
                     Padding="5,0"
-                    Command="{Binding ViewAllCommand,
-                                      Source={x:Reference Root}}" />
-
+                    Command="{Binding ViewAllCommand, Source={x:Reference Root}}" />
             </Grid>
 
-
-            <!-- ================= BILL LIST ================= -->
-
             <CollectionView
-                ItemsSource="{Binding ItemsSource,
-                                      Source={x:Reference Root}}"
+                ItemsSource="{Binding ItemsSource, Source={x:Reference Root}}"
                 SelectionMode="None"
                 Margin="12,0,12,12">
 
                 <CollectionView.ItemTemplate>
-
                     <DataTemplate>
-
-                        <!-- BILL CARD -->
 
                         <Border
                             BackgroundColor="#FFFFFF"
                             Stroke="#E5E7EB"
                             StrokeThickness="1"
-                            Padding="12"
-                            Margin="0,4">
+                            Padding="10,7"
+                            Margin="0,2">
 
                             <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="10" />
+                                <RoundRectangle CornerRadius="9" />
                             </Border.StrokeShape>
 
-                            <VerticalStackLayout
-                                Spacing="10">
-
-                                <!-- ================= TOP ROW ================= -->
+                            <Grid RowDefinitions="Auto,Auto" RowSpacing="4">
 
                                 <Grid
+                                    Grid.Row="0"
                                     ColumnDefinitions="*,Auto">
 
-                                    <!-- Invoice -->
-
-                                    <VerticalStackLayout
-                                        Spacing="2">
-
-                                        <Label
-                                            Text="INVOICE NO."
-                                            FontSize="10"
-                                            FontAttributes="Bold"
-                                            TextColor="#64748B" />
-
-                                        <Label
-                                            Text="{Binding InvoiceNo}"
-                                            FontSize="14"
-                                            FontAttributes="Bold"
-                                            TextColor="#1F2937"
-                                            LineBreakMode="TailTruncation" />
-
-                                    </VerticalStackLayout>
-
-
-                                    <!-- STATUS -->
+                                    <Label
+                                        Text="{Binding InvoiceNo}"
+                                        FontSize="14"
+                                        FontAttributes="Bold"
+                                        TextColor="#1F2937"
+                                        LineBreakMode="TailTruncation"
+                                        VerticalOptions="Center" />
 
                                     <Border
                                         Grid.Column="1"
                                         BackgroundColor="#DCFCE7"
-                                        Padding="10,5"
-                                        VerticalOptions="Center">
+                                        Padding="9,3"
+                                        VerticalOptions="Center"
+                                        StrokeThickness="0">
 
                                         <Border.StrokeShape>
-                                            <RoundRectangle CornerRadius="6" />
+                                            <RoundRectangle CornerRadius="8" />
                                         </Border.StrokeShape>
 
                                         <Label
-    Text="{Binding PayStatus,
-                   Converter={StaticResource BoolToStatusConverter}}"
-    FontSize="11"
-    FontAttributes="Bold"
-    TextColor="#15803D" />
-
+                                            Text="{Binding PayStatus, Converter={StaticResource BoolToStatusConverter}}"
+                                            FontSize="10"
+                                            FontAttributes="Bold"
+                                            TextColor="#15803D" />
                                     </Border>
-
                                 </Grid>
 
-
-                                <!-- ================= CUSTOMER ================= -->
-
                                 <Grid
-                                    ColumnDefinitions="*,Auto">
+                                    Grid.Row="1"
+                                    ColumnDefinitions="*,Auto,Auto"
+                                    ColumnSpacing="8">
 
-                                    <VerticalStackLayout
-                                        Spacing="2">
+                                    <Label
+                                        Text="{Binding CustomerName}"
+                                        FontSize="13"
+                                        FontAttributes="Bold"
+                                        TextColor="#374151"
+                                        LineBreakMode="TailTruncation"
+                                        MaxLines="1"
+                                        VerticalOptions="Center" />
 
-                                        <Label
-                                            Text="CUSTOMER NAME"
-                                            FontSize="10"
-                                            FontAttributes="Bold"
-                                            TextColor="#64748B" />
-
-                                        <Label
-                                            Text="{Binding CustomerName}"
-                                             FontSize="17"
- FontAttributes="Bold"
- TextColor="#111827" />
-
-                                    </VerticalStackLayout>
-
-
-                                    <!-- ITEMS -->
-
-                                    <VerticalStackLayout
+                                    <Label
                                         Grid.Column="1"
-                                        HorizontalOptions="End"
-                                        Spacing="2">
+                                        Text="{Binding ItemsCount, StringFormat='{0} items'}"
+                                        FontSize="11"
+                                        TextColor="#6B7280"
+                                        VerticalOptions="Center"
+                                        HorizontalTextAlignment="End" />
 
-                                        <Label
-                                            Text="ITEMS"
-                                            FontSize="10"
-                                            FontAttributes="Bold"
-                                            TextColor="#64748B"
-                                            HorizontalTextAlignment="End" />
-
-                                        <Label
-                                            Text="{Binding ItemsCount}"
-                                            FontSize="14"
-                                            TextColor="#374151"
-                                            HorizontalTextAlignment="End" />
-
-                                    </VerticalStackLayout>
-
-                                </Grid>
-
-
-                                <!-- ================= TOTAL + ACTION ================= -->
-
-                                <Grid
-                                    ColumnDefinitions="*,Auto">
-
-                                    <!-- TOTAL -->
-
-                                    <VerticalStackLayout
-                                        Spacing="2">
-
-                                        <Label
-                                            Text="TOTAL"
-                                            FontSize="10"
-                                            FontAttributes="Bold"
-                                            TextColor="#64748B" />
+                                    <HorizontalStackLayout
+                                        Grid.Column="2"
+                                        Spacing="6"
+                                        VerticalOptions="Center">
 
                                         <Label
                                             Text="{Binding GrandTotal, StringFormat='₹ {0:F2}'}"
-                                            FontSize="17"
+                                            FontSize="13"
                                             FontAttributes="Bold"
-                                            TextColor="#111827" />
-
-                                    </VerticalStackLayout>
-
-
-                                    <!-- ACTIONS -->
-
-                                    <HorizontalStackLayout
-                                        Grid.Column="1"
-                                        Spacing="8"
-                                        VerticalOptions="End">
-
-                                        <!-- VIEW -->
+                                            TextColor="#111827"
+                                            VerticalOptions="Center" />
 
                                         <Border
-                                            WidthRequest="40"
-                                            HeightRequest="40"
-                                            BackgroundColor="#F8FAFC">
+                                            WidthRequest="32"
+                                            HeightRequest="32"
+                                            BackgroundColor="#F8FAFC"
+                                            Stroke="#E5E7EB"
+                                            StrokeThickness="1">
 
                                             <Border.StrokeShape>
                                                 <RoundRectangle CornerRadius="7" />
@@ -222,21 +141,17 @@
                                             <ImageButton
                                                 Source="details.png"
                                                 BackgroundColor="Transparent"
-                                                Padding="10"
-                                                Command="{Binding
-                                                    BindingContext.ViewCommand,
-                                                    Source={x:Reference Root}}"
+                                                Padding="8"
+                                                Command="{Binding BindingContext.ViewCommand, Source={x:Reference Root}}"
                                                 CommandParameter="{Binding .}" />
-
                                         </Border>
 
-
-                                        <!-- PRINT -->
-
                                         <Border
-                                            WidthRequest="40"
-                                            HeightRequest="40"
-                                            BackgroundColor="#F8FAFC">
+                                            WidthRequest="32"
+                                            HeightRequest="32"
+                                            BackgroundColor="#F8FAFC"
+                                            Stroke="#E5E7EB"
+                                            StrokeThickness="1">
 
                                             <Border.StrokeShape>
                                                 <RoundRectangle CornerRadius="7" />
@@ -245,30 +160,17 @@
                                             <ImageButton
                                                 Source="print.png"
                                                 BackgroundColor="Transparent"
-                                                Padding="10"
-                                                Command="{Binding
-                                                    BindingContext.PrintCommand,
-                                                    Source={x:Reference Root}}"
+                                                Padding="8"
+                                                Command="{Binding BindingContext.PrintCommand, Source={x:Reference Root}}"
                                                 CommandParameter="{Binding .}" />
-
                                         </Border>
-
                                     </HorizontalStackLayout>
-
                                 </Grid>
-
-                            </VerticalStackLayout>
-
+                            </Grid>
                         </Border>
-
                     </DataTemplate>
-
                 </CollectionView.ItemTemplate>
-
             </CollectionView>
-
         </VerticalStackLayout>
-
     </Border>
-
 </ContentView>

@@ -20,6 +20,11 @@ namespace BillMaxAPP.Services
             return await _apiService.PostAsync<ResJsonOutput>(ApiRoutes.GenerateInvoice, request);
         }
 
+        public async Task<ResJsonOutput> GetBillHistoryAsync()
+        {
+            return await _apiService.GetAsync<ResJsonOutput>(ApiRoutes.BillingHistory);
+        }
+
         //public async Task<BillCreateResponse?> CreateBillAsync(BillCreateRequest request)
         //{
         //    // ASSUMPTION: route + request/response shape. See ApiRoutes.CreateBill

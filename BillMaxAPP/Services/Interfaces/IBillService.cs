@@ -6,5 +6,6 @@ namespace BillMaxAPP.Services.Interfaces
     {
         //Task<BillCreateResponse?> CreateBillAsync(Invoices request);
         Task<ResJsonOutput> CreateBillAsync(CreateInvoiceRequest request);
+        Task<ResJsonOutput> GetBillHistoryAsync();
     }
 }
