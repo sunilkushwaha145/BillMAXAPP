@@ -1,5 +1,0 @@
-<Solution>
-  <Project Path="BillMaxAPP/BillMaxAPP.csproj">
-    <Deploy Solution="Debug|*" />
-  </Project>
-</Solution>

@@ -219,3 +219,8 @@ yarn-error.log*
 /BillMax.API/BillMax.API/obj
 /BillMax.API/BillMax.API/obj/Debug
 /BillMaxAPP/obj/Debug/net10.0-android
+/BillMaxAPP.slnx
+/BillMaxAPP.sln
+/BillMaxAPP/Platforms/Tizen/Main.cs
+/BillMaxAPP/Platforms/Tizen/tizen-manifest.xml
+/BillMaxAPP/BillMaxAPP.csproj
