@@ -26,7 +26,7 @@ public static class ApiRoutes
     public const string BillingHistoryFilter = "api/Billing/history/filter";
 
     public const string GenerateInvoice = "api/Billing/invoice/generate";
-    public const string GetInvoice = "api/Billing/invoice/{0}";
+    public const string GetInvoice = "api/Billing/invoice";
     public const string PrintInvoice = "api/Billing/invoice/{0}/print";
 
 

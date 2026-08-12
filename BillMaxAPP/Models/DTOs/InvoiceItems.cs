@@ -14,12 +14,14 @@ namespace BillMaxAPP.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal SubTotal { get; set; }
 
-        public int ProductId { get; set; }
+        public string productName { get; set; }
 
         public int Quantity { get; set; }
 
-        public virtual Product Product { get; set; }
-
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal price { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal total { get; set; }
 
     }
 }

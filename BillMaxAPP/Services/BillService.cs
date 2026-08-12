@@ -25,6 +25,13 @@ namespace BillMaxAPP.Services
             return await _apiService.GetAsync<ResJsonOutput>(ApiRoutes.BillingHistory);
         }
 
+        public async Task<InvoiceResponse> GetInvoiceByIdAsync(int invoiceId)
+        {
+            var url = $"{ApiRoutes.GetInvoice}/{invoiceId}";//https://api.billmax.store/api/Billing/invoice/45
+
+            return await _apiService.GetAsync<InvoiceResponse>(url);
+        }
+
         //public async Task<BillCreateResponse?> CreateBillAsync(BillCreateRequest request)
         //{
         //    // ASSUMPTION: route + request/response shape. See ApiRoutes.CreateBill

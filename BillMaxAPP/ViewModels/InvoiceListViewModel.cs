@@ -177,9 +177,12 @@ public class InvoiceListViewModel : INotifyPropertyChanged
         if (invoice == null)
             return;
 
+
+        InvoiceResponse result = await _billService.GetInvoiceByIdAsync(invoice.InvoiceId);
         var selectedInvoice = _allInvoices
             .FirstOrDefault(x => x.InvoiceId == invoice.InvoiceId);
 
+        selectedInvoice.InvoiceItems = result?.Items;
         if (selectedInvoice == null)
             return;
 
