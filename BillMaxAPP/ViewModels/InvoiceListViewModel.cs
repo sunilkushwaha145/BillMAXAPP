@@ -1,9 +1,11 @@
 ﻿using BillMaxAPP.Models;
 using BillMaxAPP.Services.Interfaces;
+using BillMaxAPP.Views;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
+using System.Windows.Input;
 
 namespace BillMaxAPP.ViewModels;
 
@@ -12,6 +14,22 @@ public class InvoiceListViewModel : INotifyPropertyChanged
     private readonly IBillService _billService;
 
     private List<Invoices> _allInvoices = new();
+
+
+    private Invoices? _selectedInvoice;
+
+    public Invoices? SelectedInvoice
+    {
+        get => _selectedInvoice;
+        set
+        {
+            if (_selectedInvoice == value)
+                return;
+
+            _selectedInvoice = value;
+            OnPropertyChanged();
+        }
+    }
 
     private bool _isBusy;
     public bool IsBusy
@@ -45,9 +63,15 @@ public class InvoiceListViewModel : INotifyPropertyChanged
 
     public ObservableCollection<RecentBillDto> Invoices { get; } = new();
 
+    public ICommand ViewCommand { get; }
+
+
     public InvoiceListViewModel(IBillService billService)
     {
         _billService = billService;
+
+        ViewCommand = new Command<RecentBillDto>(
+           async invoice => await ViewInvoiceAsync(invoice));
     }
 
     public async Task InitializeAsync()
@@ -146,5 +170,22 @@ public class InvoiceListViewModel : INotifyPropertyChanged
         PropertyChanged?.Invoke(
             this,
             new PropertyChangedEventArgs(propertyName));
+    }
+
+    private async Task ViewInvoiceAsync(RecentBillDto? invoice)
+    {
+        if (invoice == null)
+            return;
+
+        var selectedInvoice = _allInvoices
+            .FirstOrDefault(x => x.InvoiceId == invoice.InvoiceId);
+
+        if (selectedInvoice == null)
+            return;
+
+        SelectedInvoice = selectedInvoice;
+
+        await Shell.Current.Navigation.PushAsync(
+            new InvoiceDetailsPage(selectedInvoice));
     }
 }

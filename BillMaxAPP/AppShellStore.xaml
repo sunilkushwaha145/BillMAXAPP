@@ -195,6 +195,17 @@
     </FlyoutItem>
 
 
+    <FlyoutItem
+    Title="POS Printer"
+    Route="PosPrinterPage"
+    FlyoutIcon="printer.png">
+
+        <ShellContent
+        Title="POS Printer"
+        Route="PosPrinterPage"
+        ContentTemplate="{DataTemplate views:PosPrinterPage}" />
+
+    </FlyoutItem>
     <!-- ===================================================== -->
     <!-- FLYOUT FOOTER -->
     <!-- ===================================================== -->

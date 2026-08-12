@@ -47,17 +47,15 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 	</PropertyGroup>
 
-	<!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-android|AnyCPU'">
-	  <AndroidUseAapt2>True</AndroidUseAapt2>
-	  <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
-	  <AndroidPackageFormat>aab</AndroidPackageFormat>
-	</PropertyGroup>
+<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)' == 'Release|net10.0-android'">
+    <AndroidKeyStore>true</AndroidKeyStore>
+    <AndroidPackageFormats>apk</AndroidPackageFormats>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-android|AnyCPU'">
-	  <AndroidPackageFormat>aab</AndroidPackageFormat>
-	  <AndroidUseAapt2>True</AndroidUseAapt2>
-	  <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
-	</PropertyGroup>-->
+    <AndroidSigningKeyStore>BillMax-release.keystore</AndroidSigningKeyStore>
+    <AndroidSigningKeyAlias>billmax</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>Sunil@1998</AndroidSigningKeyPass>
+    <AndroidSigningStorePass>Sunil@1998</AndroidSigningStorePass>
+</PropertyGroup>
 
 
 	<!-- ========================================================= -->
@@ -134,6 +132,10 @@
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 
+		<MauiXaml Update="Views\Billing\InvoiceDetailsPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
 		<MauiXaml Update="Views\Billing\InvoiceListPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
@@ -184,6 +186,10 @@
 
 		<MauiXaml Update="Views\LoginPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Views\POs\PosPrinterPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 
 		<MauiXaml Update="Views\Products\CategoryFormPage.xaml">

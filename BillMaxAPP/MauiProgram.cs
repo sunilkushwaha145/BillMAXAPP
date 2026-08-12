@@ -7,7 +7,9 @@ using BillMaxAPP.Views;
 using LiveChartsCore.SkiaSharpView.Maui;
 using Microsoft.Extensions.Logging;
 using SkiaSharp.Views.Maui.Controls.Hosting;
-
+#if ANDROID
+using BillMaxAPP.Platforms.Android.Services;
+#endif
 public static class MauiProgram
 {
     public static MauiApp CreateMauiApp()
@@ -53,6 +55,13 @@ public static class MauiProgram
         builder.Services.AddSingleton<IBillService, BillService>();
         builder.Services.AddTransient<CreateBillViewModel>();
         builder.Services.AddTransient<CreateBillPage>();
+
+#if ANDROID
+        builder.Services.AddSingleton<IBluetoothPrinterService, BluetoothPrinterService>();
+#endif
+
+        builder.Services.AddTransient<PosPrinterViewModel>();
+        builder.Services.AddTransient<PosPrinterPage>();
         return builder.Build();
     }
 }

@@ -5,9 +5,47 @@
     xmlns:components="clr-namespace:BillMaxAPP.Views.Components"
     x:Class="BillMaxAPP.Views.InvoiceListPage">
 
-    <Grid>
+    <Grid RowDefinitions="Auto,*">
+
+        <Border
+            Grid.Row="0"
+            Margin="12,10,12,8"
+            Padding="12,0"
+            HeightRequest="46"
+            BackgroundColor="#F8FAFC"
+            Stroke="#E5E7EB"
+            StrokeThickness="1">
+
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="12" />
+            </Border.StrokeShape>
+
+            <Grid ColumnDefinitions="Auto,*">
+
+                <Label
+                    Text="⌕"
+                    FontSize="22"
+                    TextColor="#64748B"
+                    VerticalOptions="Center"
+                    Margin="0,0,8,0" />
+
+                <Entry
+                    Grid.Column="1"
+                    Text="{Binding SearchText}"
+                    Placeholder="Search invoice, customer or mobile..."
+                    FontSize="14"
+                    TextColor="#111827"
+                    PlaceholderColor="#94A3B8"
+                    BackgroundColor="Transparent"
+                    ClearButtonVisibility="WhileEditing"
+                    VerticalOptions="Center" />
+
+            </Grid>
+
+        </Border>
 
         <components:RecentBillsCard
+            Grid.Row="1"
             ItemsSource="{Binding Invoices}" />
 
     </Grid>

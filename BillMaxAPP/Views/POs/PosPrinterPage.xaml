@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="BillMaxAPP.Views.PosPrinterPage"
+    x:Name="Root"
+    Title="POS Printer"
+    BackgroundColor="#F8FAFC">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <Grid
+            Grid.Row="0"
+            Padding="16,14"
+            ColumnDefinitions="Auto,*,Auto"
+            BackgroundColor="White">
+
+            <ImageButton
+                Source="back.png"
+                WidthRequest="32"
+                HeightRequest="32"
+                BackgroundColor="Transparent"
+                Clicked="BackButton_Clicked" />
+
+            <Label
+                Grid.Column="1"
+                Text="POS Printer"
+                FontSize="19"
+                FontAttributes="Bold"
+                TextColor="#111827"
+                HorizontalOptions="Center"
+                VerticalOptions="Center" />
+
+        </Grid>
+
+        <ScrollView Grid.Row="1">
+
+            <VerticalStackLayout
+                Padding="16"
+                Spacing="14">
+
+                <Border
+                    BackgroundColor="White"
+                    Stroke="#E5E7EB"
+                    StrokeThickness="1"
+                    Padding="16">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="14" />
+                    </Border.StrokeShape>
+
+                    <Grid ColumnDefinitions="Auto,*,Auto">
+
+                        <Border
+                            WidthRequest="42"
+                            HeightRequest="42"
+                            BackgroundColor="#DCFCE7"
+                            StrokeThickness="0"
+                            VerticalOptions="Center">
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="21" />
+                            </Border.StrokeShape>
+
+                            <Label
+                                Text="BT"
+                                FontSize="13"
+                                FontAttributes="Bold"
+                                TextColor="#15803D"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center" />
+
+                        </Border>
+
+                        <VerticalStackLayout
+                            Grid.Column="1"
+                            Margin="12,0"
+                            Spacing="3"
+                            VerticalOptions="Center">
+
+                            <Label
+                                Text="Bluetooth"
+                                FontSize="15"
+                                FontAttributes="Bold"
+                                TextColor="#111827" />
+
+                            <Label
+                                Text="Ready to connect"
+                                FontSize="12"
+                                TextColor="#64748B" />
+
+                        </VerticalStackLayout>
+
+                        <Label
+                            Grid.Column="2"
+                            Text="●"
+                            FontSize="18"
+                            TextColor="#16A34A"
+                            VerticalOptions="Center" />
+
+                    </Grid>
+
+                </Border>
+
+                <Grid ColumnDefinitions="*,Auto">
+
+                    <VerticalStackLayout Spacing="2">
+
+                        <Label
+                            Text="Printers"
+                            FontSize="17"
+                            FontAttributes="Bold"
+                            TextColor="#111827" />
+
+                        <Label
+                            Text="Select your 58mm thermal printer"
+                            FontSize="12"
+                            TextColor="#64748B" />
+
+                    </VerticalStackLayout>
+
+                    <Button
+                        Grid.Column="1"
+                        Text="REFRESH"
+                        HeightRequest="36"
+                        Padding="12,0"
+                        CornerRadius="9"
+                        FontSize="11"
+                        FontAttributes="Bold"
+                        BackgroundColor="#EEF2FF"
+                        TextColor="#4338CA"
+                        Clicked="RefreshButton_Clicked" />
+
+                </Grid>
+
+                <CollectionView
+                    ItemsSource="{Binding Printers}"
+                    SelectionMode="None">
+
+                    <CollectionView.EmptyView>
+
+                        <Border
+                            BackgroundColor="White"
+                            Stroke="#E5E7EB"
+                            StrokeThickness="1"
+                            Padding="24"
+                            Margin="0,4">
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="14" />
+                            </Border.StrokeShape>
+
+                            <VerticalStackLayout
+                                Spacing="8"
+                                HorizontalOptions="Center">
+
+                                <Label
+                                    Text="No printers found"
+                                    FontSize="15"
+                                    FontAttributes="Bold"
+                                    TextColor="#374151"
+                                    HorizontalTextAlignment="Center" />
+
+                                <Label
+                                    Text="Pair your printer from Bluetooth settings and refresh."
+                                    FontSize="12"
+                                    TextColor="#64748B"
+                                    HorizontalTextAlignment="Center" />
+
+                            </VerticalStackLayout>
+
+                        </Border>
+
+                    </CollectionView.EmptyView>
+
+                    <CollectionView.ItemTemplate>
+
+                        <DataTemplate>
+
+                            <Border
+                                BackgroundColor="White"
+                                Stroke="#E5E7EB"
+                                StrokeThickness="1"
+                                Padding="14"
+                                Margin="0,4">
+
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="14" />
+                                </Border.StrokeShape>
+
+                                <Grid ColumnDefinitions="Auto,*,Auto">
+
+                                    <Border
+                                        WidthRequest="42"
+                                        HeightRequest="42"
+                                        BackgroundColor="#F1F5F9"
+                                        StrokeThickness="0"
+                                        VerticalOptions="Center">
+
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="21" />
+                                        </Border.StrokeShape>
+
+                                        <Label
+                                            Text="🖨"
+                                            FontSize="20"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center" />
+
+                                    </Border>
+
+                                    <VerticalStackLayout
+                                        Grid.Column="1"
+                                        Margin="12,0"
+                                        Spacing="3"
+                                        VerticalOptions="Center">
+
+                                        <Label
+                                            Text="{Binding Name}"
+                                            FontSize="14"
+                                            FontAttributes="Bold"
+                                            TextColor="#111827" />
+
+                                        <Label
+                                            Text="{Binding Address}"
+                                            FontSize="11"
+                                            TextColor="#64748B" />
+
+                                        <Label
+                                            Text="58mm Thermal Printer"
+                                            FontSize="11"
+                                            TextColor="#94A3B8" />
+
+                                    </VerticalStackLayout>
+
+                                    <Button
+                                        Grid.Column="2"
+                                        Text="CONNECT"
+                                        HeightRequest="36"
+                                        Padding="10,0"
+                                        CornerRadius="9"
+                                        FontSize="11"
+                                        FontAttributes="Bold"
+                                        BackgroundColor="#16A34A"
+                                        TextColor="White"
+                                        Command="{Binding Source={x:Reference Root}, Path=ConnectCommand}"
+                                        CommandParameter="{Binding .}" />
+
+                                </Grid>
+
+                            </Border>
+
+                        </DataTemplate>
+
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+
+                <Border
+                    BackgroundColor="White"
+                    Stroke="#E5E7EB"
+                    StrokeThickness="1"
+                    Padding="16">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="14" />
+                    </Border.StrokeShape>
+
+                    <VerticalStackLayout Spacing="12">
+
+                        <Label
+                            Text="Connected Printer"
+                            FontSize="15"
+                            FontAttributes="Bold"
+                            TextColor="#111827" />
+
+                        <Grid ColumnDefinitions="Auto,*,Auto">
+
+                            <Border
+                                WidthRequest="40"
+                                HeightRequest="40"
+                                BackgroundColor="#DCFCE7"
+                                StrokeThickness="0">
+
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="20" />
+                                </Border.StrokeShape>
+
+                                <Label
+                                    Text="✓"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    TextColor="#15803D"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center" />
+
+                            </Border>
+
+                            <VerticalStackLayout
+                                Grid.Column="1"
+                                Margin="12,0"
+                                Spacing="3"
+                                VerticalOptions="Center">
+
+                                <Label
+                                    Text="{Binding ConnectedPrinterName}"
+                                    FontSize="14"
+                                    FontAttributes="Bold"
+                                    TextColor="#111827" />
+
+                                <Label
+                                    Text="{Binding ConnectedPrinterAddress}"
+                                    FontSize="11"
+                                    TextColor="#64748B" />
+
+                            </VerticalStackLayout>
+
+                            <Label
+                                Grid.Column="2"
+                                Text="{Binding ConnectionStatus}"
+                                FontSize="11"
+                                FontAttributes="Bold"
+                                TextColor="#16A34A"
+                                VerticalOptions="Center" />
+
+                        </Grid>
+
+                        <Grid
+                            ColumnDefinitions="*,*"
+                            ColumnSpacing="10">
+
+                            <Button
+                                Text="TEST PRINT"
+                                HeightRequest="44"
+                                CornerRadius="10"
+                                BackgroundColor="#EEF2FF"
+                                TextColor="#4338CA"
+                                FontAttributes="Bold"
+                                Command="{Binding TestPrintCommand}" />
+
+                            <Button
+                                Grid.Column="1"
+                                Text="DISCONNECT"
+                                HeightRequest="44"
+                                CornerRadius="10"
+                                BackgroundColor="#FEF2F2"
+                                TextColor="#DC2626"
+                                FontAttributes="Bold"
+                                Command="{Binding DisconnectCommand}" />
+
+                        </Grid>
+
+                    </VerticalStackLayout>
+
+                </Border>
+
+                <Border
+                    BackgroundColor="#FFF7ED"
+                    Stroke="#FED7AA"
+                    StrokeThickness="1"
+                    Padding="14">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12" />
+                    </Border.StrokeShape>
+
+                    <VerticalStackLayout Spacing="4">
+
+                        <Label
+                            Text="Printer Setup"
+                            FontSize="13"
+                            FontAttributes="Bold"
+                            TextColor="#9A3412" />
+
+                        <Label
+                            Text="Make sure your 58mm thermal printer is paired with this device before connecting."
+                            FontSize="11"
+                            TextColor="#C2410C" />
+
+                    </VerticalStackLayout>
+
+                </Border>
+
+            </VerticalStackLayout>
+
+        </ScrollView>
+
+    </Grid>
+
+</ContentPage>
